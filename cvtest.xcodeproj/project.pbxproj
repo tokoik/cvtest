@@ -3,21 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D04306214FE860F003F355A /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D04306114FE860F003F355A /* libopencv_core.dylib */; };
 		7D112B49138FE02200920F06 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D112B48138FE02200920F06 /* main.cpp */; };
 		7D4E92C0139CF25200891902 /* gg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E92BF139CF25200891902 /* gg.cpp */; };
 		7D4E92C3139CF26F00891902 /* simple.frag in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E92C1139CF26800891902 /* simple.frag */; };
 		7D4E92C4139CF26F00891902 /* simple.vert in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E92C2139CF26800891902 /* simple.vert */; };
 		7D4E92D2139CF29700891902 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E92D1139CF29700891902 /* matrix.cpp */; };
-		7D58A17D14FD2C3B0067269C /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D58A17C14FD2C3B0067269C /* libopencv_core.2.3.1.dylib */; };
 		7D58A17F14FD2C480067269C /* libopencv_highgui.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D58A17E14FD2C480067269C /* libopencv_highgui.dylib */; };
 		7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D7AF85E1222C8CC003A0434 /* opengl.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D04306114FE860F003F355A /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../../opt/local/lib/libopencv_core.dylib; sourceTree = "<group>"; };
 		7D112B48138FE02200920F06 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7D1E90EE1123E36C005E6C75 /* cvtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cvtest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1E90F11123E36C005E6C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,8 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D58A17D14FD2C3B0067269C /* libopencv_core.2.3.1.dylib in Frameworks */,
 				7D58A17F14FD2C480067269C /* libopencv_highgui.dylib in Frameworks */,
+				7D04306214FE860F003F355A /* libopencv_core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +49,7 @@
 		7D1E90D81123E2F7005E6C75 = {
 			isa = PBXGroup;
 			children = (
+				7D04306114FE860F003F355A /* libopencv_core.dylib */,
 				7D112B48138FE02200920F06 /* main.cpp */,
 				7D4E92BE139CF24C00891902 /* gg.h */,
 				7D4E92BF139CF25200891902 /* gg.cpp */,
@@ -96,8 +98,11 @@
 /* Begin PBXProject section */
 		7D1E90DA1123E2F7005E6C75 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = 7D1E90DD1123E2F7005E6C75 /* Build configuration list for PBXProject "cvtest" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -146,8 +151,7 @@
 		7D1E90DB1123E2F7005E6C75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				OTHER_LDFLAGS = "";
 				VALID_ARCHS = x86_64;
@@ -157,8 +161,7 @@
 		7D1E90DC1123E2F7005E6C75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				OTHER_LDFLAGS = "";
 				VALID_ARCHS = x86_64;
@@ -171,7 +174,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -189,7 +191,6 @@
 					"-framework",
 					OpenGL,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = cvtest;
 			};
 			name = Debug;
@@ -200,7 +201,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
@@ -217,7 +217,6 @@
 					"-framework",
 					OpenGL,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = cvtest;
 				ZERO_LINK = NO;
 			};

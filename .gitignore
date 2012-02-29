@@ -13,8 +13,8 @@ cvtest
 build/
 *.xcodeproj/*
 !project.pbxproj
-*.xcuserdatad
-DerivedData
+*.xcuserdatad/
+DerivedData/
 #
 # for Windows
 #

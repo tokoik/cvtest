@@ -5,7 +5,7 @@ core
 *.o
 *~
 a.out
-gouraud
+cvtest
 #
 # for Mac
 #

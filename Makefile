@@ -5,8 +5,6 @@ TARGET = cvtest
 
 .PHONY: clean depend
 
-OBJECTS = main.o gg.o matrix.o
-
 $(TARGET): $(OBJECTS)
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 

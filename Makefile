@@ -1,11 +1,19 @@
-CPPFLAGS = -I/usr/X11R6/include -DX11 -g
-LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lopencv_core -lopencv_highgui -lopencv_imgproc -lXmu -lXi -lXext -lX11 -lpthread -lm
-TARGETS = cvtest
+CXXFLAGS	= -I/usr/X11R6/include -I/opt/local/include -DX11 -Wall -g
+LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -L/opt/local/lib -lopencv_core -lopencv_highgui -lopencv_imgproc -lm
+OBJECTS	= $(patsubst %.cpp,%.o,$(wildcard *.cpp))
+TARGET = cvtest
+
+.PHONY: clean depend
+
 OBJECTS = main.o gg.o matrix.o
 
-$(TARGETS): $(OBJECTS)
-	$(CXX) $(CFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
+$(TARGET): $(OBJECTS)
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-main.o:	gg.h matrix.h
 clean:
-	-rm -f $(TARGETS) *.o *~
+	-$(RM) -f $(TARGET) *.o *~ core
+
+depend:
+	$(CXX) $(CXXFLAGS) -MM *.cpp > $(TARGET).d
+
+-include $(wildcard *.d)

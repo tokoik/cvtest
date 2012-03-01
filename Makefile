@@ -9,7 +9,7 @@ $(TARGET): $(OBJECTS)
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 clean:
-	-$(RM) -f $(TARGET) *.o *~ .*~ core
+	-$(RM) $(TARGET) *.o *~ .*~ core
 
 depend:
 	$(CXX) $(CXXFLAGS) -MM *.cpp > $(TARGET).d

@@ -13,12 +13,11 @@
 		7D4E92C0139CF25200891902 /* gg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E92BF139CF25200891902 /* gg.cpp */; };
 		7D4E92C3139CF26F00891902 /* simple.frag in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E92C1139CF26800891902 /* simple.frag */; };
 		7D4E92C4139CF26F00891902 /* simple.vert in Resources */ = {isa = PBXBuildFile; fileRef = 7D4E92C2139CF26800891902 /* simple.vert */; };
-		7D4E92D2139CF29700891902 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D4E92D1139CF29700891902 /* matrix.cpp */; };
 		7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D7AF85E1222C8CC003A0434 /* opengl.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7D112B48138FE02200920F06 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		7D112B48138FE02200920F06 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7D1E90EE1123E36C005E6C75 /* cvtest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cvtest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1E90F11123E36C005E6C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D47AD01151EC19000F9A12B /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../../usr/local/lib/libopencv_core.dylib; sourceTree = "<group>"; };
@@ -27,8 +26,6 @@
 		7D4E92BF139CF25200891902 /* gg.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; path = gg.cpp; sourceTree = "<group>"; };
 		7D4E92C1139CF26800891902 /* simple.frag */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.glsl; path = simple.frag; sourceTree = "<group>"; };
 		7D4E92C2139CF26800891902 /* simple.vert */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.glsl; path = simple.vert; sourceTree = "<group>"; };
-		7D4E92D0139CF29000891902 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
-		7D4E92D1139CF29700891902 /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
 		7D7AF85E1222C8CC003A0434 /* opengl.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = opengl.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,8 +48,6 @@
 				7D112B48138FE02200920F06 /* main.cpp */,
 				7D4E92BE139CF24C00891902 /* gg.h */,
 				7D4E92BF139CF25200891902 /* gg.cpp */,
-				7D4E92D0139CF29000891902 /* matrix.h */,
-				7D4E92D1139CF29700891902 /* matrix.cpp */,
 				7D4E92C1139CF26800891902 /* simple.frag */,
 				7D4E92C2139CF26800891902 /* simple.vert */,
 				7D1E90EF1123E36C005E6C75 /* Products */,
@@ -139,7 +134,6 @@
 			files = (
 				7D112B49138FE02200920F06 /* main.cpp in Sources */,
 				7D4E92C0139CF25200891902 /* gg.cpp in Sources */,
-				7D4E92D2139CF29700891902 /* matrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

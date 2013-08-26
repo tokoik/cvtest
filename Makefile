@@ -1,5 +1,5 @@
 CXXFLAGS	= -I/usr/X11R6/include -I/opt/local/include -DX11 -Wall -g
-LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -L/opt/local/lib -lopencv_core -lopencv_highgui -lopencv_imgproc -lm
+LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -L/opt/local/lib -lopencv_core -lopencv_highgui -lm
 OBJECTS	= $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 TARGET = cvtest
 

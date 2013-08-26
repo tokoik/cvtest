@@ -1,40 +1,37 @@
 #
 # for Linux
 #
-core
 *.o
-*~
+core
 a.out
 cvtest
 #
 # for Mac
 #
 .DS_Store
-build/
 *.xcodeproj/*
 !project.pbxproj
 *.xcuserdatad/
+build/
 DerivedData/
 #
 # for Windows
 #
-Debug/
-ipch/
 Thumbs.db
-*.obj
+*.com
+*.exe
 *.dll
 !freeglut.dll
-!glew32.dll
-*.ncb
-*.lib
-!freeglut.lib
-!glew32.lib
 *.ncb
 *.suo
 *.vcproj.*.*.user
 *.sdf
 *.opensdf
+Debug/
+Release/
+ipch/
 #
 # anothre stuff
 #
+*~
 *.bak

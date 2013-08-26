@@ -51,12 +51,12 @@ static GLint sizeLoc;
  */
 static void getTexture(void)
 {
-  if (cvGrabFrame(capture)) {
-    
+  if (cvGrabFrame(capture))
+  {
     // キャプチャ映像から画像の切り出し
     IplImage *image = cvRetrieveFrame(capture);
    
-    // 切り出した画像をテクスチャメモリに転送
+    // 切り出した画像の種類の判別
     GLenum format;
     if (image->nChannels == 3)
       format = GL_BGR;
@@ -64,8 +64,11 @@ static void getTexture(void)
       format = GL_BGRA;
     else
       format = GL_LUMINANCE;
+
+    // テクスチャメモリへの転送
     glBindTexture(GL_TEXTURE_2D, texname);
-    for (int y = 0; y < image->height; ++y) {
+    for (int y = 0; y < image->height; ++y)
+    {
       glTexSubImage2D(GL_TEXTURE_2D, 0, 0, y, image->width, 1, format,
                       GL_UNSIGNED_BYTE, image->imageData + image->widthStep * y);
     }
@@ -88,7 +91,8 @@ static void cvInit(void)
 {
   // カメラの初期化
   capture = cvCreateCameraCapture(CV_CAP_ANY);
-  if (capture == 0) {
+  if (capture == 0)
+  {
     std::cerr << "cannot capture image" << std::endl;
     exit(1);
   }
@@ -143,13 +147,15 @@ static void makeSphere(float radius, int slices, int stacks)
   face = new GLuint[faces][3];
   
   // 頂点の位置とテクスチャ座標を求める
-  for (int k = 0, j = 0; j <= stacks; ++j) {
+  for (int k = 0, j = 0; j <= stacks; ++j)
+  {
     float t = (float)j / (float)stacks;
     float ph = 3.141593f * t;
     float y = cosf(ph);
     float r = sinf(ph);
     
-    for (int i = 0; i <= slices; ++i) {
+    for (int i = 0; i <= slices; ++i)
+    {
       float s = (float)i / (float)slices;
       float th = 2.0f * 3.141593f * s;
       float x = r * cosf(th);
@@ -174,8 +180,10 @@ static void makeSphere(float radius, int slices, int stacks)
   }
   
   // 面の指標を求める
-  for (int k = 0, j = 0; j < stacks; ++j) {
-    for (int i = 0; i < slices; ++i) {
+  for (int k = 0, j = 0; j < stacks; ++j)
+  {
+    for (int i = 0; i < slices; ++i)
+    {
       int count = (slices + 1) * j + i;
       
       /* 上半分 */
@@ -311,7 +319,8 @@ static void idle(void)
  */
 static void keyboard(unsigned char key, int x, int y)
 {
-  switch (key) {
+  switch (key)
+  {
     case 'q':
     case 'Q':
     case '\033':  // '\033' は ESC の ASCII コード

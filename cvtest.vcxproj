@@ -79,11 +79,9 @@
   <ItemGroup>
     <ClCompile Include="gg.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gg.h" />
-    <ClInclude Include="matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="simple.frag" />

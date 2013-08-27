@@ -48,33 +48,62 @@ static GLint dmapLoc;
 // テクスチャサイズ
 static GLint sizeLoc;
 
+// テクスチャ
+static GLenum format;
+static GLsizei width, height;
+static GLubyte texture[TEXHEIGHT * TEXWIDTH * 4];
+
+// スレッド
+#include <cstring>
+#ifdef _WIN32
+#else
+#  include <pthread.h>
+static pthread_t thread;
+static pthread_mutex_t mutex;
+#endif
+
 //
 // テクスチャ作成
 //
-static void getTexture(void)
+static void *getTexture(void *arg)
 {
-  if (cvGrabFrame(capture))
+  CvCapture *capture = reinterpret_cast<CvCapture *>(arg);
+
+  for (;;)
   {
-    // キャプチャ映像から画像の切り出し
-    IplImage *image = cvRetrieveFrame(capture);
-
-    // 切り出した画像の種類の判別
-    GLenum format;
-    if (image->nChannels == 3)
-      format = GL_BGR;
-    else if (image->nChannels == 4)
-      format = GL_BGRA;
-    else
-      format = GL_LUMINANCE;
-
-    // テクスチャメモリへの転送
-    glBindTexture(GL_TEXTURE_2D, texname);
-    for (int y = 0; y < image->height; ++y)
+    if (cvGrabFrame(capture))
     {
-      glTexSubImage2D(GL_TEXTURE_2D, 0, 0, y, image->width, 1, format,
-        GL_UNSIGNED_BYTE, image->imageData + image->widthStep * y);
+      // キャプチャ映像から画像を切り出す
+      IplImage *image = cvRetrieveFrame(capture);
+
+      // 切り出した画像の種類の判別
+      width = image->width;
+      height = image->height;
+      if (image->nChannels == 3)
+        format = GL_BGR;
+      else if (image->nChannels == 4)
+        format = GL_BGRA;
+      else
+        format = GL_LUMINANCE;
+
+      // テクスチャメモリへの転送
+      GLsizei size = image->width * image->nChannels;
+#ifdef _WIN32
+#else
+      pthread_mutex_lock(&mutex);
+#endif
+      for (int y = 0; y < image->height; ++y)
+        memcpy(texture + size * y, image->imageData + image->widthStep * y, size);
+#ifdef _WIN32
+#else
+      pthread_mutex_unlock(&mutex);
+#endif
     }
+
+    pthread_testcancel();
   }
+
+  return 0;
 }
 
 //
@@ -82,6 +111,18 @@ static void getTexture(void)
 //
 static void releaseCapture(void)
 {
+#ifdef _WIN32
+#else
+  // スレッドを停止する
+  pthread_cancel(thread);
+
+  // スレッドの停止を待つ
+  pthread_join(thread, 0);
+
+  // ミューテックスを破棄する
+  pthread_mutex_destroy(&mutex);
+#endif
+
   // image の release
   cvReleaseCapture(&capture);
 }
@@ -101,6 +142,10 @@ static void cvInit(void)
   cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, WIDTH);
   cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
   cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, 30.0);
+
+  // スレッドを生成する
+  pthread_mutex_init(&mutex, 0);
+  pthread_create(&thread, 0, getTexture, capture);
 
   // プログラム終了時に capture を release する
   atexit(releaseCapture);
@@ -245,8 +290,10 @@ static void display(void)
   if (firstTime == 0) { firstTime = glutGet(GLUT_ELAPSED_TIME); t = 0.0; }
   else t = (GLdouble)((glutGet(GLUT_ELAPSED_TIME) - firstTime) % CYCLE) / (GLdouble)CYCLE;
 
-  // テクスチャ作成
-  getTexture();
+  // テクスチャ取得
+  pthread_mutex_lock(&mutex);
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, texture);
+  pthread_mutex_unlock(&mutex);
 
   // 画面クリア
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -23,15 +23,15 @@ using namespace gg;
 #define TEXWIDTH 1024
 #define TEXHEIGHT 512
 
-// キャプチャ用
-static CvCapture *capture = 0;
-
 // 球の分割数
 #define SLICES 64
 #define STACKS 32
 
 // アニメーションの周期
 #define CYCLE 10000
+
+// キャプチャ用
+static CvCapture *capture = 0;
 
 // 頂点配列オブジェクト
 static GLuint vaname;

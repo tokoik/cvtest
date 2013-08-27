@@ -30,13 +30,13 @@ void main(void)
   vec4 c0 = texture2D(dmap, gl_TexCoord[0].xy);
   vec4 cx = texture2D(dmap, gl_TexCoord[0].xy + vec2(1.0 / size.x, 0.0));
   vec4 cy = texture2D(dmap, gl_TexCoord[0].xy + vec2(0.0, 1.0 / size.y));
-  
+
   vec3 n = normalize(vec3(dot(cx - c0, togray), dot(cy - c0, togray), nz));
   vec3 h = normalize(normalize(l) - normalize(v));
-  
+
   vec4 iamb = kamb * lamb;
   vec4 idiff = max(dot(n, l), 0) * kdiff * ldiff;
   vec4 ispec = pow(max(dot(n, h), 0), kshi) * kspec * lspec;
-  
+
   gl_FragColor = c0 * (iamb + idiff) + ispec;
 }

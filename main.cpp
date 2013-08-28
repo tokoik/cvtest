@@ -74,7 +74,7 @@ class CaptureWorker
   HANDLE mutex;
 #else
   pthread_t thread;
-  thread_mutex_t mutex;
+  pthread_mutex_t mutex;
 #endif
 
 public:
@@ -94,7 +94,7 @@ public:
     cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, static_cast<double>(fps));
 
     // テクスチャ用のメモリを確保する
-    texture = new GLubyte[TEXHEIGHT * TEXWIDTH * 4];
+    texture = new GLubyte[width * height * 4];
 
     // スレッドとミューテックスを生成する
 #ifdef _WIN32
@@ -132,6 +132,9 @@ public:
 
     // image の release
     cvReleaseCapture(&capture);
+
+    // メモリの解放
+    delete[] texture;
   }
 
   // mutex のロック
@@ -313,7 +316,7 @@ static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, G
       vertex[k][5] = z;
 
       // 頂点のテクスチャ座標値
-      vertex[k][6] = s * sScale;
+      vertex[k][6] = sScale - s * sScale;
       vertex[k][7] = t * tScale;
 
       ++k;

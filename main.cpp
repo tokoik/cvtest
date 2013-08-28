@@ -15,9 +15,12 @@
 #include "gg.h"
 using namespace gg;
 
-// 画像サイズ
+// キャプチャする画像サイズ
 #define WIDTH 640
 #define HEIGHT 480
+
+// キャプチャするフレームレート
+#define FPS 30
 
 // テクスチャサイズ
 #define TEXWIDTH 1024
@@ -29,9 +32,6 @@ using namespace gg;
 
 // アニメーションの周期
 #define CYCLE 10000
-
-// キャプチャ用
-static CvCapture *capture = 0;
 
 // 頂点配列オブジェクト
 static GLuint vaname;
@@ -48,6 +48,9 @@ static GLint dmapLoc;
 // テクスチャサイズ
 static GLint sizeLoc;
 
+// キャプチャ用
+static CvCapture *capture;
+
 //
 // テクスチャ作成
 //
@@ -58,29 +61,32 @@ static void getTexture(void)
     // キャプチャ映像から画像の切り出し
     IplImage *image = cvRetrieveFrame(capture);
 
-    // 切り出した画像の種類の判別
-    GLenum format;
-    if (image->nChannels == 3)
-      format = GL_BGR;
-    else if (image->nChannels == 4)
-      format = GL_BGRA;
-    else
-      format = GL_LUMINANCE;
-
-    // テクスチャメモリへの転送
-    glBindTexture(GL_TEXTURE_2D, texname);
-    for (int y = 0; y < image->height; ++y)
+    if (image)
     {
-      glTexSubImage2D(GL_TEXTURE_2D, 0, 0, y, image->width, 1, format,
-        GL_UNSIGNED_BYTE, image->imageData + image->widthStep * y);
+      // 切り出した画像の種類の判別
+      GLenum format;
+      if (image->nChannels == 3)
+        format = GL_BGR;
+      else if (image->nChannels == 4)
+        format = GL_BGRA;
+      else
+        format = GL_LUMINANCE;
+
+      // テクスチャメモリへの転送
+      glBindTexture(GL_TEXTURE_2D, texname);
+      for (int y = 0; y < image->height; ++y)
+      {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, y, image->width, 1, format,
+          GL_UNSIGNED_BYTE, image->imageData + image->widthStep * y);
+      }
     }
   }
 }
 
 //
-// プログラム終了時の処理
+// キャプチャ終了時の処理
 //
-static void releaseCapture(void)
+static void endCapture(void)
 {
   // image の release
   cvReleaseCapture(&capture);
@@ -102,8 +108,8 @@ static void cvInit(void)
   cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
   cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, 30.0);
 
-  // プログラム終了時に capture を release する
-  atexit(releaseCapture);
+  // キャプチャ終了時の処理を予約する
+  atexit(endCapture);
 }
 
 //

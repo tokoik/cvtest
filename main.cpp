@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <opencv2/highgui/highgui.hpp>
+
 #ifdef _WIN32
 #  define CV_VERSION_STR CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
 #  ifdef _DEBUG

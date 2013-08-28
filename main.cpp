@@ -161,7 +161,7 @@ static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, G
       vertex[k][5] = z;
 
       // 頂点のテクスチャ座標値
-      vertex[k][6] = s * sScale;
+      vertex[k][6] = sScale - s * sScale;
       vertex[k][7] = t * tScale;
 
       ++k;

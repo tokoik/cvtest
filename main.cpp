@@ -246,7 +246,7 @@ public:
 static CaptureWorker *worker = 0;
 
 //
-// 終了処理
+// キャプチャ終了時の処理
 //
 static void endCapture(void)
 {
@@ -261,7 +261,7 @@ static void cvInit(void)
   // スレッドを生成する
   worker = new CaptureWorker(CV_CAP_ANY, WIDTH, HEIGHT, FPS);
 
-  // 終了処理を予約する
+  // キャプチャ終了時の処理を予約する
   atexit(endCapture);
 }
 

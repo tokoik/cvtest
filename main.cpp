@@ -1,7 +1,10 @@
 #include <iostream>
+#include <cstring>
 
 #include <opencv2/highgui/highgui.hpp>
+
 #ifdef _WIN32
+#  include <Windows.h>
 #  define CV_VERSION_STR CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
 #  ifdef _DEBUG
 #    define CV_EXT_STR "d.lib"
@@ -10,14 +13,20 @@
 #  endif
 #  pragma comment(lib, "opencv_core" CV_VERSION_STR CV_EXT_STR)
 #  pragma comment(lib, "opencv_highgui" CV_VERSION_STR CV_EXT_STR)
+#else
+#  include <pthread.h>
+#  include <unistd.h>
 #endif
 
 #include "gg.h"
 using namespace gg;
 
-// 画像サイズ
+// キャプチャする画像サイズ
 #define WIDTH 640
 #define HEIGHT 480
+
+// キャプチャするフレームレート
+#define FPS 30
 
 // テクスチャサイズ
 #define TEXWIDTH 1024
@@ -29,9 +38,6 @@ using namespace gg;
 
 // アニメーションの周期
 #define CYCLE 10000
-
-// キャプチャ用
-static CvCapture *capture = 0;
 
 // 頂点配列オブジェクト
 static GLuint vaname;
@@ -48,42 +54,203 @@ static GLint dmapLoc;
 // テクスチャサイズ
 static GLint sizeLoc;
 
-//
-// テクスチャ作成
-//
-static void getTexture(void)
+// キャプチャ用スレッド
+class CaptureWorker
 {
-  if (cvGrabFrame(capture))
+  // キャプチャ
+  CvCapture *capture;
+
+  // テクスチャ
+  GLenum format;
+  GLsizei width, height;
+  GLubyte *texture;
+
+  // 実行状態
+  bool status;
+
+  // スレッドとミューテックス
+#ifdef _WIN32
+  HANDLE thread;
+  HANDLE mutex;
+#else
+  pthread_t thread;
+  thread_mutex_t mutex;
+#endif
+
+public:
+
+  // コンストラクタ
+  CaptureWorker(int index, int width, int height, int fps)
   {
-    // キャプチャ映像から画像の切り出し
-    IplImage *image = cvRetrieveFrame(capture);
-
-    // 切り出した画像の種類の判別
-    GLenum format;
-    if (image->nChannels == 3)
-      format = GL_BGR;
-    else if (image->nChannels == 4)
-      format = GL_BGRA;
-    else
-      format = GL_LUMINANCE;
-
-    // テクスチャメモリへの転送
-    glBindTexture(GL_TEXTURE_2D, texname);
-    for (int y = 0; y < image->height; ++y)
+    // カメラを初期化する
+    capture = cvCreateCameraCapture(index);
+    if (capture == 0)
     {
-      glTexSubImage2D(GL_TEXTURE_2D, 0, 0, y, image->width, 1, format,
-        GL_UNSIGNED_BYTE, image->imageData + image->widthStep * y);
+      std::cerr << "cannot capture image" << std::endl;
+      exit(1);
     }
+    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, static_cast<double>(width));
+    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, static_cast<double>(height));
+    cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, static_cast<double>(fps));
+
+    // テクスチャ用のメモリを確保する
+    texture = new GLubyte[TEXHEIGHT * TEXWIDTH * 4];
+
+    // スレッドとミューテックスを生成する
+#ifdef _WIN32
+    mutex = CreateMutex(NULL, TRUE, NULL);
+    thread = CreateThread(NULL, 0, start, (LPVOID)this, 0, NULL);
+#else
+    pthread_mutex_init(&mutex, 0);
+    pthread_create(&thread, 0, start, this);
+#endif
+
+    // スレッドが実行状態であることを記録する
+    status = true;
   }
-}
+
+  // デストラクタ
+  ~CaptureWorker()
+  {
+    // スレッドを停止する
+    stop();
+
+#ifdef _WIN32
+    // スレッドの停止を待つ
+    WaitForSingleObject(thread, 0); 
+    CloseHandle(thread);
+
+    // ミューテックスを破棄する
+    CloseHandle(mutex);
+#else
+    // スレッドの停止を待つ
+    pthread_join(thread, 0);
+
+    // ミューテックスを破棄する
+    pthread_mutex_destroy(&mutex);
+#endif
+
+    // image の release
+    cvReleaseCapture(&capture);
+  }
+
+  // mutex のロック
+  void lock(void)
+  {
+#ifdef _WIN32
+    WaitForSingleObject(mutex, 0); 
+#else
+    pthread_mutex_lock(&mutex);
+#endif
+  }
+
+  // mutex のリリース
+  void unlock(void)
+  {
+#ifdef _WIN32
+    ReleaseMutex(mutex);
+#else
+    pthread_mutex_unlock(&mutex);
+#endif
+  }
+
+  // スレッドの開始
+#ifdef _WIN32
+  static DWORD WINAPI start(LPVOID arg)
+#else
+  static void *start(void *arg)
+#endif
+  {
+    return reinterpret_cast<CaptureWorker *>(arg)->getTexture();
+  }
+
+  // スレッドの停止
+  void stop(void)
+  {
+    lock();
+    status = false;
+    unlock();
+  }
+
+  // スレッドの停止判定
+  bool check(void)
+  {
+    bool ret;
+
+    lock();
+    ret = status;
+    unlock();
+
+    return ret;
+  }
+
+  // テクスチャ作成
+#ifdef _WIN32
+  DWORD WINAPI getTexture(void)
+#else
+  void *getTexture(void)
+#endif
+  {
+    for (;;)
+    {
+      // 終了条件のテスト
+      if (!check()) break;
+
+      if (cvGrabFrame(capture))
+      {
+        // キャプチャ映像から画像を切り出す
+        IplImage *image = cvRetrieveFrame(capture);
+
+        if (image)
+        {
+          // 切り出した画像の種類の判別
+          width = image->width;
+          height = image->height;
+          if (image->nChannels == 3)
+            format = GL_BGR;
+          else if (image->nChannels == 4)
+            format = GL_BGRA;
+          else
+            format = GL_LUMINANCE;
+
+          // テクスチャメモリへの転送
+          GLsizei size = image->width * image->nChannels;
+          lock();
+          for (int y = 0; y < image->height; ++y)
+            memcpy(texture + size * y, image->imageData + image->widthStep * y, size);
+          unlock();
+        }
+        else
+        {
+          // １フレーム分待つ
+#ifdef _WIN32
+          Sleep(1000 / FPS);
+#else
+          usleep(1000000 / FPS);
+#endif
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  // テクスチャ転送
+  void sendTexture(void)
+  {
+    lock();
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, texture);
+    unlock();
+  }
+};
+static CaptureWorker *worker = 0;
 
 //
-// プログラム終了時の処理
+// 終了処理
 //
-static void releaseCapture(void)
+static void endCapture(void)
 {
-  // image の release
-  cvReleaseCapture(&capture);
+  delete worker;
 }
 
 //
@@ -91,19 +258,11 @@ static void releaseCapture(void)
 //
 static void cvInit(void)
 {
-  // カメラの初期化
-  capture = cvCreateCameraCapture(CV_CAP_ANY);
-  if (capture == 0)
-  {
-    std::cerr << "cannot capture image" << std::endl;
-    exit(1);
-  }
-  cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, WIDTH);
-  cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
-  cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, 30.0);
+  // スレッドを生成する
+  worker = new CaptureWorker(CV_CAP_ANY, WIDTH, HEIGHT, FPS);
 
-  // プログラム終了時に capture を release する
-  atexit(releaseCapture);
+  // 終了処理を予約する
+  atexit(endCapture);
 }
 
 //
@@ -246,7 +405,7 @@ static void display(void)
   else t = (GLdouble)((glutGet(GLUT_ELAPSED_TIME) - firstTime) % CYCLE) / (GLdouble)CYCLE;
 
   // テクスチャ作成
-  getTexture();
+  worker->sendTexture();
 
   // 画面クリア
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

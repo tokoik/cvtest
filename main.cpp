@@ -96,6 +96,11 @@ public:
     // テクスチャ用のメモリを確保する
     texture = new GLubyte[width * height * 4];
 
+    // パラメータに初期値を与えておく
+    this->width = width;
+    this->height = height;
+    this->format = GL_BGRA;
+
     // スレッドとミューテックスを生成する
 #ifdef _WIN32
     mutex = CreateMutex(NULL, TRUE, NULL);

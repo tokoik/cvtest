@@ -1,6 +1,8 @@
 cvtest
 ======
 
+A trivial sample program using IplImage of OpenCV for an OpenGL texture
+
 これは OpenCV の画像 (IplImage) を OpenGL のテクスチャとして使うサンプルサンプルです。
 カメラからキャプチャした画像を、回転する球の表面にマッピングします。
 そのままマッピングしたのでは面白くないので、

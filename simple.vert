@@ -1,21 +1,21 @@
 #version 120
 
-// ŒõŒ¹
-const vec3 light = vec3(3.0, 4.0, 5.0);                     // •ûŒüƒxƒNƒgƒ‹
+// å…‰æº
+const vec3 light = vec3(3.0, 4.0, 5.0);                     // æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 
-// ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚É‘—‚é
-varying vec3 l;   // ŒõüƒxƒNƒgƒ‹
-varying vec3 v;   // ’¸“_ˆÊ’u
+// ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã«é€ã‚‹
+varying vec3 l;   // å…‰ç·šãƒ™ã‚¯ãƒˆãƒ«
+varying vec3 v;   // é ‚ç‚¹ä½ç½®
 
 void main(void)
 {
-  vec3 n = normalize(gl_NormalMatrix * gl_Normal);          // –@üƒxƒNƒgƒ‹
-  vec3 t = normalize(vec3(n.z, 0.0, -n.x));                 // ÚüƒxƒNƒgƒ‹
-  vec3 b = cross(n, t);                                     // ]ÚüƒxƒNƒgƒ‹
-  mat3 m = transpose(mat3(t, b, n));                        // Ú‹óŠÔŠî’ês—ñ
+  vec3 n = normalize(gl_NormalMatrix * gl_Normal);          // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+  vec3 t = normalize(vec3(n.z, 0.0, -n.x));                 // æ¥ç·šãƒ™ã‚¯ãƒˆãƒ«
+  vec3 b = cross(n, t);                                     // å¾“æ¥ç·šãƒ™ã‚¯ãƒˆãƒ«
+  mat3 m = transpose(mat3(t, b, n));                        // æ¥ç©ºé–“åŸºåº•è¡Œåˆ—
 
-  l = normalize(m * light);                                 // Ú‹óŠÔ‚ÌŒõüƒxƒNƒgƒ‹
-  v = normalize(m * (gl_ModelViewMatrix * gl_Vertex).xyz);  // Ú‹óŠÔ‚Ì‹üƒxƒNƒgƒ‹
+  l = normalize(m * light);                                 // æ¥ç©ºé–“ã®å…‰ç·šãƒ™ã‚¯ãƒˆãƒ«
+  v = normalize(m * (gl_ModelViewMatrix * gl_Vertex).xyz);  // æ¥ç©ºé–“ã®è¦–ç·šãƒ™ã‚¯ãƒˆãƒ«
 
   gl_TexCoord[0] = gl_MultiTexCoord0;
   gl_Position = ftransform();

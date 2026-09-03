@@ -1,27 +1,27 @@
 #version 120
 
-// ŒõŒ¹
-const vec4 lamb   = vec4(0.2, 0.2, 0.2, 1.0);   // ŠÂ‹«Œõ‹­“x
-const vec4 ldiff  = vec4(1.0, 1.0, 1.0, 0.0);   // ŒõŒ¹‹­“x‚ÌŠgU”½Ë¬•ª
-const vec4 lspec  = vec4(1.0, 1.0, 1.0, 0.0);   // ŒõŒ¹‹­“x‚Ì‹¾–Ê”½Ë¬•ª
+// å…‰æº
+const vec4 lamb   = vec4(0.2, 0.2, 0.2, 1.0);   // ç’°å¢ƒå…‰å¼·åº¦
+const vec4 ldiff  = vec4(1.0, 1.0, 1.0, 0.0);   // å…‰æºå¼·åº¦ã®æ‹¡æ•£åå°„æˆåˆ†
+const vec4 lspec  = vec4(1.0, 1.0, 1.0, 0.0);   // å…‰æºå¼·åº¦ã®é¡é¢åå°„æˆåˆ†
 
-// Ş¿
-const vec4 kamb   = vec4(0.6, 0.6, 0.6, 1.0);   // ŠÂ‹«Œõ‚Ì”½ËŒW”
-const vec4 kdiff  = vec4(0.6, 0.6, 0.6, 1.0);   // ŠgU”½ËŒW”
-const vec4 kspec  = vec4(0.4, 0.4, 0.4, 1.0);   // ‹¾–Ê”½ËŒW”
-const float kshi  = 40.0;                       // ‹P‚«ŒW”
+// æè³ª
+const vec4 kamb   = vec4(0.6, 0.6, 0.6, 1.0);   // ç’°å¢ƒå…‰ã®åå°„ä¿‚æ•°
+const vec4 kdiff  = vec4(0.6, 0.6, 0.6, 1.0);   // æ‹¡æ•£åå°„ä¿‚æ•°
+const vec4 kspec  = vec4(0.4, 0.4, 0.4, 1.0);   // é¡é¢åå°„ä¿‚æ•°
+const float kshi  = 40.0;                       // è¼ãä¿‚æ•°
 
-// –@üƒ}ƒbƒv‚Ì‚‚³‚ÌƒXƒP[ƒ‹
+// æ³•ç·šãƒãƒƒãƒ—ã®é«˜ã•ã®ã‚¹ã‚±ãƒ¼ãƒ«
 const float nz = 0.1;
 
 // RGB -> Gray
 const vec4 togray = vec4(0.29891, 0.58661, 0.11448, 0.0);
 
-// ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_‚©‚ç‚à‚ç‚¤
-varying vec3 l;   // ŒõüƒxƒNƒgƒ‹
-varying vec3 v;   // ’¸“_ˆÊ’u
+// ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã‹ã‚‰ã‚‚ã‚‰ã†
+varying vec3 l;   // å…‰ç·šãƒ™ã‚¯ãƒˆãƒ«
+varying vec3 v;   // é ‚ç‚¹ä½ç½®
 
-// ƒeƒNƒXƒ`ƒƒ
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 uniform sampler2D dmap;  // diffuse color map
 uniform vec2 size;       // texture size
 

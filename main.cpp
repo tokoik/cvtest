@@ -1,307 +1,173 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <cstring>
+#include <thread>
+#include <mutex>
+#include <atomic>
+#include <chrono>
 
-#include <opencv2/highgui/highgui.hpp>
-
-#ifdef _WIN32
-#  include <Windows.h>
-#  define CV_VERSION_STR CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
-#  ifdef _DEBUG
-#    define CV_EXT_STR "d.lib"
-#  else
-#    define CV_EXT_STR ".lib"
-#  endif
-#  pragma comment(lib, "opencv_core" CV_VERSION_STR CV_EXT_STR)
-#  pragma comment(lib, "opencv_highgui" CV_VERSION_STR CV_EXT_STR)
-#else
-#  include <pthread.h>
-#  include <unistd.h>
-#endif
-
+#include <opencv2/opencv.hpp>
 #include "gg.h"
 using namespace gg;
 
-// ƒLƒƒƒvƒ`ƒƒ‚·‚é‰æ‘œƒTƒCƒY
+// ã‚­ãƒ£ãƒ—ãƒãƒ£ç”»åƒã‚µã‚¤ã‚º
 #define WIDTH 640
 #define HEIGHT 480
 
-// ƒLƒƒƒvƒ`ƒƒ‚·‚éƒtƒŒ[ƒ€ƒŒ[ƒg
+// ã‚­ãƒ£ãƒ—ãƒãƒ£ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
 #define FPS 30
 
-// ƒeƒNƒXƒ`ƒƒƒTƒCƒY
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µã‚¤ã‚º
 #define TEXWIDTH 1024
 #define TEXHEIGHT 512
 
-// ‹…‚Ì•ªŠ„”
+// çƒã®åˆ†å‰²æ•°
 #define SLICES 64
 #define STACKS 32
 
-// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌüŠú
+// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å‘¨æœŸ
 #define CYCLE 10000
 
-// ’¸“_”z—ñƒIƒuƒWƒFƒNƒg
+// é ‚ç‚¹é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 static GLuint vaname;
 
-// ƒeƒNƒXƒ`ƒƒƒIƒuƒWƒFƒNƒg
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 static GLuint texname;
 
-// ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg
+// ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 static GLuint progname;
 
-// ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆ
 static GLint dmapLoc;
 
-// ƒeƒNƒXƒ`ƒƒƒTƒCƒY
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µã‚¤ã‚º
 static GLint sizeLoc;
 
-// ƒLƒƒƒvƒ`ƒƒ—pƒXƒŒƒbƒh
+// ã‚­ãƒ£ãƒ—ãƒãƒ£ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰
 class CaptureWorker
 {
-  // ƒLƒƒƒvƒ`ƒƒ
-  CvCapture *capture;
-
-  // ƒeƒNƒXƒ`ƒƒ
+  cv::VideoCapture capture;
   GLenum format;
   GLsizei width, height;
   GLubyte *texture;
-
-  // Àsó‘Ô
-  bool status;
-
-  // ƒXƒŒƒbƒh‚Æƒ~ƒ…[ƒeƒbƒNƒX
-#ifdef _WIN32
-  HANDLE thread;
-  HANDLE mutex;
-#else
-  pthread_t thread;
-  pthread_mutex_t mutex;
-#endif
+  std::atomic<bool> status{ false };
+  std::thread workerThread;
+  std::mutex mtx;
 
 public:
-
-  // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
   CaptureWorker(int index, int width, int height, int fps)
+    : width(width), height(height), format(GL_BGR), texture(new GLubyte[width * height * 4])
   {
-    // ƒJƒƒ‰‚ğ‰Šú‰»‚·‚é
-    capture = cvCreateCameraCapture(index);
-    if (capture == 0)
+    capture.open(index);
+    if (!capture.isOpened())
     {
-      std::cerr << "cannot capture image" << std::endl;
-      exit(1);
+      std::cerr << "Warning: Cannot open camera capture device." << std::endl;
+      // ã‚«ãƒ¡ãƒ©ãŒæ¥ç¶šã•ã‚Œã¦ã„ãªã„å ´åˆã§ã‚‚ã‚¯ãƒ©ãƒƒã‚·ãƒ¥ã›ãšãƒ€ãƒŸãƒ¼ç”»åƒã‚’ç”Ÿæˆ
+      memset(texture, 128, width * height * 4);
     }
-    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, static_cast<double>(width));
-    cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, static_cast<double>(height));
-    cvSetCaptureProperty(capture, CV_CAP_PROP_FPS, static_cast<double>(fps));
+    else
+    {
+      capture.set(cv::CAP_PROP_FRAME_WIDTH, static_cast<double>(width));
+      capture.set(cv::CAP_PROP_FRAME_HEIGHT, static_cast<double>(height));
+      capture.set(cv::CAP_PROP_FPS, static_cast<double>(fps));
+    }
 
-    // ƒeƒNƒXƒ`ƒƒ—p‚Ìƒƒ‚ƒŠ‚ğŠm•Û‚·‚é
-    texture = new GLubyte[width * height * 4];
-
-    // ƒpƒ‰ƒ[ƒ^‚É‰Šú’l‚ğ—^‚¦‚Ä‚¨‚­
-    this->width = width;
-    this->height = height;
-    this->format = GL_BGRA;
-
-    // ƒXƒŒƒbƒh‚Æƒ~ƒ…[ƒeƒbƒNƒX‚ğ¶¬‚·‚é
-#ifdef _WIN32
-    mutex = CreateMutex(NULL, TRUE, NULL);
-    thread = CreateThread(NULL, 0, start, (LPVOID)this, 0, NULL);
-#else
-    pthread_mutex_init(&mutex, 0);
-    pthread_create(&thread, 0, start, this);
-#endif
-
-    // ƒXƒŒƒbƒh‚ªÀsó‘Ô‚Å‚ ‚é‚±‚Æ‚ğ‹L˜^‚·‚é
     status = true;
+    workerThread = std::thread(&CaptureWorker::run, this);
   }
 
-  // ƒfƒXƒgƒ‰ƒNƒ^
   ~CaptureWorker()
   {
-    // ƒXƒŒƒbƒh‚ğ’â~‚·‚é
-    stop();
-
-#ifdef _WIN32
-    // ƒXƒŒƒbƒh‚Ì’â~‚ğ‘Ò‚Â
-    WaitForSingleObject(thread, 0); 
-    CloseHandle(thread);
-
-    // ƒ~ƒ…[ƒeƒbƒNƒX‚ğ”jŠü‚·‚é
-    CloseHandle(mutex);
-#else
-    // ƒXƒŒƒbƒh‚Ì’â~‚ğ‘Ò‚Â
-    pthread_join(thread, 0);
-
-    // ƒ~ƒ…[ƒeƒbƒNƒX‚ğ”jŠü‚·‚é
-    pthread_mutex_destroy(&mutex);
-#endif
-
-    // image ‚Ì release
-    cvReleaseCapture(&capture);
-
-    // ƒƒ‚ƒŠ‚Ì‰ğ•ú
+    status = false;
+    if (workerThread.joinable())
+    {
+      workerThread.join();
+    }
+    if (capture.isOpened())
+    {
+      capture.release();
+    }
     delete[] texture;
   }
 
-  // mutex ‚ÌƒƒbƒN
-  void lock(void)
+  void lock() { mtx.lock(); }
+  void unlock() { mtx.unlock(); }
+
+  void run()
   {
-#ifdef _WIN32
-    WaitForSingleObject(mutex, 0); 
-#else
-    pthread_mutex_lock(&mutex);
-#endif
-  }
-
-  // mutex ‚ÌƒŠƒŠ[ƒX
-  void unlock(void)
-  {
-#ifdef _WIN32
-    ReleaseMutex(mutex);
-#else
-    pthread_mutex_unlock(&mutex);
-#endif
-  }
-
-  // ƒXƒŒƒbƒh‚ÌŠJn
-#ifdef _WIN32
-  static DWORD WINAPI start(LPVOID arg)
-#else
-  static void *start(void *arg)
-#endif
-  {
-    return reinterpret_cast<CaptureWorker *>(arg)->getTexture();
-  }
-
-  // ƒXƒŒƒbƒh‚Ì’â~
-  void stop(void)
-  {
-    lock();
-    status = false;
-    unlock();
-  }
-
-  // ƒXƒŒƒbƒh‚Ì’â~”»’è
-  bool check(void)
-  {
-    bool ret;
-
-    lock();
-    ret = status;
-    unlock();
-
-    return ret;
-  }
-
-  // ƒeƒNƒXƒ`ƒƒì¬
-#ifdef _WIN32
-  DWORD WINAPI getTexture(void)
-#else
-  void *getTexture(void)
-#endif
-  {
-    for (;;)
+    cv::Mat frame;
+    while (status)
     {
-      // I—¹ğŒ‚ÌƒeƒXƒg
-      if (!check()) break;
-
-      if (cvGrabFrame(capture))
+      if (capture.isOpened() && capture.read(frame) && !frame.empty())
       {
-        // ƒLƒƒƒvƒ`ƒƒ‰f‘œ‚©‚ç‰æ‘œ‚ğØ‚èo‚·
-        IplImage *image = cvRetrieveFrame(capture);
-
-        if (image)
-        {
-          // Ø‚èo‚µ‚½‰æ‘œ‚Ìí—Ş‚Ì”»•Ê
-          width = image->width;
-          height = image->height;
-          if (image->nChannels == 3)
-            format = GL_BGR;
-          else if (image->nChannels == 4)
-            format = GL_BGRA;
-          else
-            format = GL_LUMINANCE;
-
-          // ƒeƒNƒXƒ`ƒƒƒƒ‚ƒŠ‚Ö‚Ì“]‘—
-          GLsizei size = image->width * image->nChannels;
-          lock();
-          for (int y = 0; y < image->height; ++y)
-            memcpy(texture + size * y, image->imageData + image->widthStep * y, size);
-          unlock();
-        }
+        lock();
+        width = frame.cols;
+        height = frame.rows;
+        if (frame.channels() == 3)
+          format = GL_BGR;
+        else if (frame.channels() == 4)
+          format = GL_BGRA;
         else
+          format = GL_LUMINANCE;
+
+        GLsizei size = width * frame.channels();
+        for (int y = 0; y < height; ++y)
         {
-          // ‚PƒtƒŒ[ƒ€•ª‘Ò‚Â
-#ifdef _WIN32
-          Sleep(1000 / FPS);
-#else
-          usleep(1000000 / FPS);
-#endif
+          memcpy(texture + size * y, frame.ptr(y), size);
         }
+        unlock();
+      }
+      else
+      {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FPS));
       }
     }
-
-    return 0;
   }
 
-  // ƒeƒNƒXƒ`ƒƒ“]‘—
-  void sendTexture(void)
+  void sendTexture()
   {
     lock();
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, texture);
     unlock();
   }
 };
-static CaptureWorker *worker = 0;
 
-//
-// ƒLƒƒƒvƒ`ƒƒI—¹‚Ìˆ—
-//
+static CaptureWorker *worker = nullptr;
+
 static void endCapture(void)
 {
   delete worker;
+  worker = nullptr;
 }
 
-//
-// OpenCV ‚Ì‰Šú‰»
-//
 static void cvInit(void)
 {
-  // ƒXƒŒƒbƒh‚ğ¶¬‚·‚é
-  worker = new CaptureWorker(CV_CAP_ANY, WIDTH, HEIGHT, FPS);
-
-  // ƒLƒƒƒvƒ`ƒƒI—¹‚Ìˆ—‚ğ—\–ñ‚·‚é
+  worker = new CaptureWorker(0, WIDTH, HEIGHT, FPS);
   atexit(endCapture);
 }
 
-//
-// ‹…‚Ìƒf[ƒ^‚ğì¬‚·‚é
-//
 static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, GLfloat tScale)
 {
-  // ’¸“_”z—ñƒIƒuƒWƒFƒNƒg‚Ìİ’è
   GLuint vao;
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
 
-  // ’¸“_ƒoƒbƒtƒ@ƒIƒuƒWƒFƒNƒg‚Ìİ’è
   int vertices = (slices + 1) * (stacks + 1);
   int faces = slices * stacks * 2;
   GLuint vbo[2];
   glGenBuffers(2, vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[1]);
-  glBufferData(GL_ARRAY_BUFFER, sizeof (GLfloat) * 8 * vertices, 0, GL_STATIC_DRAW);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof (GLuint) * 3 * faces, 0, GL_STATIC_DRAW);
-  GLfloat (*vertex)[8] = reinterpret_cast<GLfloat (*)[8]>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
-  GLuint (*face)[3] = reinterpret_cast<GLuint (*)[3]>(glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY));
+  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 8 * vertices, 0, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * 3 * faces, 0, GL_STATIC_DRAW);
+  GLfloat(*vertex)[8] = reinterpret_cast<GLfloat(*)[8]>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+  GLuint(*face)[3] = reinterpret_cast<GLuint(*)[3]>(glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY));
 
-  // ’¸“_‚ÌˆÊ’u‚ÆƒeƒNƒXƒ`ƒƒÀ•W‚ğ‹‚ß‚é
   for (int k = 0, j = 0; j <= stacks; ++j)
   {
     GLfloat t = static_cast<GLfloat>(j) / static_cast<GLfloat>(stacks);
     GLfloat ph = 3.141593f * t;
-    GLfloat y = cos(ph);
-    GLfloat r = sin(ph);
+    GLfloat y = cosf(ph);
+    GLfloat r = sinf(ph);
 
     for (int i = 0; i <= slices; ++i)
     {
@@ -310,17 +176,14 @@ static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, G
       GLfloat x = r * cosf(th);
       GLfloat z = r * sinf(th);
 
-      // ’¸“_‚ÌÀ•W’l
       vertex[k][0] = x * radius;
       vertex[k][1] = y * radius;
       vertex[k][2] = z * radius;
 
-      // ’¸“_‚Ì–@üƒxƒNƒgƒ‹
       vertex[k][3] = x;
       vertex[k][4] = y;
       vertex[k][5] = z;
 
-      // ’¸“_‚ÌƒeƒNƒXƒ`ƒƒÀ•W’l
       vertex[k][6] = sScale - s * sScale;
       vertex[k][7] = t * tScale;
 
@@ -328,20 +191,17 @@ static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, G
     }
   }
 
-  // –Ê‚Ìw•W‚ğ‹‚ß‚é
   for (int k = 0, j = 0; j < stacks; ++j)
   {
     for (int i = 0; i < slices; ++i)
     {
       int count = (slices + 1) * j + i;
 
-      /* ã”¼•ª */
       face[k][0] = count;
       face[k][1] = count + 1;
       face[k][2] = count + slices + 2;
       ++k;
 
-      /* ‰º”¼•ª */
       face[k][0] = count;
       face[k][1] = count + slices + 2;
       face[k][2] = count + slices + 1;
@@ -355,34 +215,23 @@ static GLuint makeSphere(float radius, int slices, int stacks, GLfloat sScale, G
   glEnableClientState(GL_VERTEX_ARRAY);
   glEnableClientState(GL_NORMAL_ARRAY);
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-  glVertexPointer(3, GL_FLOAT, sizeof (GLfloat) * 8, reinterpret_cast<GLfloat *>(0));
-  glNormalPointer(GL_FLOAT, sizeof (GLfloat) * 8, reinterpret_cast<GLfloat *>(0) + 3);
-  glTexCoordPointer(2, GL_FLOAT, sizeof (GLfloat) * 8, reinterpret_cast<GLfloat *>(0) + 6);
+  glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 8, reinterpret_cast<GLfloat *>(0));
+  glNormalPointer(GL_FLOAT, sizeof(GLfloat) * 8, reinterpret_cast<GLfloat *>(0) + 3);
+  glTexCoordPointer(2, GL_FLOAT, sizeof(GLfloat) * 8, reinterpret_cast<GLfloat *>(0) + 6);
 
   return vao;
 }
 
-//
-// OpenGL ‚Ì‰Šú‰»
-//
 static void glInit(void)
 {
-  // ƒQ[ƒ€ƒOƒ‰ƒtƒBƒbƒNƒX“Á˜_‚Ì“s‡‚É‚à‚Æ‚Ã‚­‰Šú‰»
   ggInit();
 
-  // ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ì“Ç‚İ‚İ
   progname = ggLoadShader("simple.vert", "simple.frag");
-
-  // ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg—p‚Ì uniform •Ï”
   dmapLoc = glGetUniformLocation(progname, "dmap");
-
-  // ƒeƒNƒXƒ`ƒƒƒTƒCƒY‚Ì uniform •Ï”
   sizeLoc = glGetUniformLocation(progname, "size");
 
-  // }Œ`ƒf[ƒ^‚Ìì¬
   vaname = makeSphere(1.0f, SLICES, STACKS, (GLfloat)WIDTH / (GLfloat)TEXWIDTH, (GLfloat)HEIGHT / (GLfloat)TEXHEIGHT);
 
-  // ƒeƒNƒXƒ`ƒƒƒƒ‚ƒŠ‚ÌŠm•Û
   glGenTextures(1, &texname);
   glBindTexture(GL_TEXTURE_2D, texname);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TEXWIDTH, TEXHEIGHT, 0, GL_BGRA, GL_UNSIGNED_BYTE, 0);
@@ -391,38 +240,26 @@ static void glInit(void)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-  // ƒeƒNƒXƒ`ƒƒ‚Í‚»‚Ì‚Ü‚Ü•\¦‚·‚éiƒ|ƒŠƒSƒ“F‚ğ–³‹‚·‚éj
   glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);  
 
-  // ‰B–ÊÁ‹
   glEnable(GL_DEPTH_TEST);
-
-  // ”wŒiF
   glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
-//
-// ‰æ–Ê•\¦
-//
 static void display(void)
 {
-  // ‚ÌŒv‘ª
   static int firstTime = 0;
   GLdouble t;
   if (firstTime == 0) { firstTime = glutGet(GLUT_ELAPSED_TIME); t = 0.0; }
   else t = (GLdouble)((glutGet(GLUT_ELAPSED_TIME) - firstTime) % CYCLE) / (GLdouble)CYCLE;
 
-  // ƒeƒNƒXƒ`ƒƒì¬
-  worker->sendTexture();
+  if (worker) worker->sendTexture();
 
-  // ‰æ–ÊƒNƒŠƒA
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // ƒ‚ƒfƒ‹ƒrƒ…[•ÏŠ·s—ñ‚Ìİ’è
   glLoadIdentity();
   gluLookAt(0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-  // }Œ`•`‰æ
   glBindTexture(GL_TEXTURE_2D, texname);
   glBindVertexArray(vaname);
   glUseProgram(progname);
@@ -433,60 +270,40 @@ static void display(void)
   glDrawElements(GL_TRIANGLES, SLICES * STACKS * 2 * 3, GL_UNSIGNED_INT, 0);
   glPopMatrix();
 
-  // ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO
   glutSwapBuffers();
 }
 
-//
-// ƒEƒBƒ“ƒhƒE‚ÌƒŠƒTƒCƒY
-//
 static void resize(int w, int h)
 {
-  // ƒEƒBƒ“ƒhƒE‘S‘Ì‚ğ•\¦—Ìˆæ‚É‚·‚é
   glViewport(0, 0, w, h);
 
-  // “Š‰e•ÏŠ·s—ñ‚ğİ’è‚·‚é
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(40.0, (GLdouble)w / (GLdouble)h, 1.0, 5.0);
 
-  // ƒ‚ƒfƒ‹ƒrƒ…[•ÏŠ·s—ñ‚ÉØ‚è‘Ö‚¦‚é
   glMatrixMode(GL_MODELVIEW);
 }
 
-//
-// ƒAƒjƒ[ƒVƒ‡ƒ“
-//
 static void idle(void)
 {
   glutPostRedisplay();
 }
 
-//
-// ƒL[‘€ì‚Ìˆ—
-//
 static void keyboard(unsigned char key, int x, int y)
 {
   switch (key)
   {
   case 'q':
   case 'Q':
-  case '\033':  // '\033' ‚Í ESC ‚Ì ASCII ƒR[ƒh
+  case '':
     exit(0);
   default:
     break;
   }
 }
 
-//
-// ƒƒCƒ“ƒvƒƒOƒ‰ƒ€
-//
 int main(int argc, char *argv[])
 {
-  // OpenCV ‚Ì‰Šú‰»
-  cvInit();
-
-  // GLUT ‚Ì‰Šú‰»
   glutInit(&argc, argv);
   glutInitWindowSize(WIDTH, HEIGHT);
   glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
@@ -496,10 +313,9 @@ int main(int argc, char *argv[])
   glutIdleFunc(idle);
   glutKeyboardFunc(keyboard);
 
-  // OpenGL ‚Ì‰Šú‰»
+  cvInit();
   glInit();
 
-  // ƒƒCƒ“ƒ‹[ƒv
   glutMainLoop();
 
   return 0;

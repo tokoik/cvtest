@@ -1,5 +1,5 @@
 /*
-** ƒQ[ƒ€ƒOƒ‰ƒtƒBƒbƒNƒX“Á˜_—p•â•ƒvƒƒOƒ‰ƒ€ GLUT ”Å
+** ã‚²ãƒ¼ãƒ ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç‰¹è«–ç”¨è£œåŠ©ãƒ—ãƒ­ã‚°ãƒ©ãƒ  GLUT ç‰ˆ
 **
 
 Copyright (c) 2011, 2012, 2013 Kohe Tokoi. All Rights Reserved.
@@ -1639,7 +1639,7 @@ PFNGLRASTERPOS4XVOESPROC glRasterPos4xvOES;
 PFNGLRECTXOESPROC glRectxOES;
 PFNGLRECTXVOESPROC glRectxvOES;
 PFNGLROTATEXOESPROC glRotatexOES;
-PFNGLSAMPLECOVERAGEOESPROC glSampleCoverageOES;
+//PFNGLSAMPLECOVERAGEOESPROC glSampleCoverageOES;
 PFNGLSCALEXOESPROC glScalexOES;
 PFNGLTEXCOORD1XOESPROC glTexCoord1xOES;
 PFNGLTEXCOORD2XOESPROC glTexCoord2xOES;
@@ -3864,7 +3864,7 @@ static inline void initGLExtFunc(void)
   glRectxOES = (PFNGLRECTXOESPROC)wglGetProcAddress("glRectxOES");
   glRectxvOES = (PFNGLRECTXVOESPROC)wglGetProcAddress("glRectxvOES");
   glRotatexOES = (PFNGLROTATEXOESPROC)wglGetProcAddress("glRotatexOES");
-  glSampleCoverageOES = (PFNGLSAMPLECOVERAGEOESPROC)wglGetProcAddress("glSampleCoverageOES");
+  //glSampleCoverageOES = (PFNGLSAMPLECOVERAGEOESPROC)wglGetProcAddress("glSampleCoverageOES");
   glScalexOES = (PFNGLSCALEXOESPROC)wglGetProcAddress("glScalexOES");
   glTexCoord1xOES = (PFNGLTEXCOORD1XOESPROC)wglGetProcAddress("glTexCoord1xOES");
   glTexCoord2xOES = (PFNGLTEXCOORD2XOESPROC)wglGetProcAddress("glTexCoord2xOES");
@@ -4490,15 +4490,15 @@ static inline void initGLExtFunc(void)
 #endif
 
 /*
-** ƒQ[ƒ€ƒOƒ‰ƒtƒBƒbƒNƒX“Á˜_‚Ì“s‡‚É‚à‚Æ‚Ã‚­‰Šú‰»
+** ã‚²ãƒ¼ãƒ ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç‰¹è«–ã®éƒ½åˆã«ã‚‚ã¨ã¥ãåˆæœŸåŒ–
 */
 void gg::ggInit(void)
 {
-  // ƒo[ƒWƒ‡ƒ“ƒ`ƒFƒbƒN
+  // ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒã‚§ãƒƒã‚¯
   if (atof(reinterpret_cast<const char *>(glGetString(GL_VERSION))) < 2.1)
   {
 #if defined(_WIN32)
-    MessageBox(NULL, L"OpenGL Version 2.1 ˆÈ~‚É‘Î‰‚µ‚½ƒrƒfƒIƒJ[ƒh‚ª•K—v‚Å‚·", L"GG“Á˜_", MB_OK);
+    MessageBoxW(NULL, L"OpenGL Version 2.1 ä»¥é™ã«å¯¾å¿œã—ãŸãƒ“ãƒ‡ã‚ªã‚«ãƒ¼ãƒ‰ãŒå¿…è¦ã§ã™", L"GGç‰¹è«–", MB_OK);
 #else
     std::cerr << "Error: This program requires OpenGL 2.1 or lator." << std::endl;
 #endif
@@ -4506,11 +4506,11 @@ void gg::ggInit(void)
   }
 
 #if defined(_WIN32)
-  // OpenGL 1.2 ˆÈ~‚Ì API ‚ğ—LŒø‰»‚·‚é
+  // OpenGL 1.2 ä»¥é™ã® API ã‚’æœ‰åŠ¹åŒ–ã™ã‚‹
   initGLExtFunc();
 #endif
 
-  // Swap Interval ‚Ìİ’è
+  // Swap Interval ã®è¨­å®š
 #if defined(_WIN32)
   if (wglSwapIntervalEXT) wglSwapIntervalEXT(1);
   return;
@@ -4532,7 +4532,7 @@ void gg::ggInit(void)
 }
 
 /*
-** OpenGL ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+** OpenGL ã®ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯
 */
 void gg::ggError(const char *msg)
 {
@@ -4579,7 +4579,7 @@ void gg::ggError(const char *msg)
 }
 
 /*
-** FBO ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+** FBO ã®ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯
 */
 void gg::ggFBOError(const char *msg)
 {
@@ -4620,20 +4620,20 @@ void gg::ggFBOError(const char *msg)
 }
 
 /*
-** ”z—ñ‚Ì“à—e‚ğ TGA ƒtƒ@ƒCƒ‹‚É•Û‘¶
+** é…åˆ—ã®å†…å®¹ã‚’ TGA ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
 */
 bool gg::ggSaveTga(GLsizei sx, GLsizei sy, unsigned int depth, const GLubyte *buffer, const char *name)
 {
-  // ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   std::ofstream file(name, std::ios::binary);
   if (file.fail())
   {
-    // ŠJ‚¯‚È‚©‚Á‚½
+    // é–‹ã‘ãªã‹ã£ãŸ
     std::cerr << "Waring: Can't open file: " << name << std::endl;
     return false;
   }
 
-  // ƒwƒbƒ_‚Ì‘‚«‚İ
+  // ãƒ˜ãƒƒãƒ€ã®æ›¸ãè¾¼ã¿
   const unsigned char header[18] =
   {
     0,          // ID length
@@ -4654,42 +4654,42 @@ bool gg::ggSaveTga(GLsizei sx, GLsizei sy, unsigned int depth, const GLubyte *bu
   file.write(reinterpret_cast<const char *>(header), sizeof header);
   if (file.bad())
   {
-    // ƒwƒbƒ_‚Ì‘‚«‚İ‚É¸”s‚µ‚½
+    // ãƒ˜ãƒƒãƒ€ã®æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't write file header: " << name << std::endl;
     file.close();
     return 0;
   }
 
-  // ƒf[ƒ^‚Ì‘‚«‚İ
+  // ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
   file.write(reinterpret_cast<const char *>(buffer), sx * sy * depth);
 
-  // ƒtƒbƒ^‚Ì‘‚«‚İ
+  // ãƒ•ãƒƒã‚¿ã®æ›¸ãè¾¼ã¿
   static const char footer[] = "\0\0\0\0\0\0\0\0TRUEVISION-XFILE.";
   file.write(footer, sizeof footer);
 
-  // ‘‚«‚İƒ`ƒFƒbƒN
+  // æ›¸ãè¾¼ã¿ãƒã‚§ãƒƒã‚¯
   if (file.bad())
   {
-    // ‘‚«‚İ‚É¸”s‚µ‚½
+    // æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't write image data: " << name << std::endl;
   }
 
-  // ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
   file.close();
 
   return true;
 }
 
 /*
-** ƒJƒ‰[ƒoƒbƒtƒ@‚Ì“à—e‚ğ TGA ƒtƒ@ƒCƒ‹‚É•Û‘¶
+** ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ TGA ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
 */
 bool gg::ggSaveColor(const char *name)
 {
-  // Œ»İ‚Ìƒrƒ…[ƒ|[ƒg‚ÌƒTƒCƒY‚ğ“¾‚é
+  // ç¾åœ¨ã®ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®ã‚µã‚¤ã‚ºã‚’å¾—ã‚‹
   GLint viewport[4];
   glGetIntegerv(GL_VIEWPORT, viewport);
 
-  // ƒrƒ…[ƒ|[ƒg‚ÌƒTƒCƒY•ª‚Ìƒƒ‚ƒŠ‚ğŠm•Û‚·‚é
+  // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®ã‚µã‚¤ã‚ºåˆ†ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã™ã‚‹
   size_t size = viewport[2] * viewport[3] * 3;
   GLubyte *buffer = 0;
   try
@@ -4698,37 +4698,37 @@ bool gg::ggSaveColor(const char *name)
   }
   catch (std::bad_alloc e)
   {
-    // ƒƒ‚ƒŠŠm•Û‚É¸”s‚µ‚½
+    // ãƒ¡ãƒ¢ãƒªç¢ºä¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't allocate memory to write file: " << name << std::endl;
     return false;
   }
 
-  // ‰æ–Ê•\¦‚ÌŠ®—¹‚ğ‘Ò‚Â
+  // ç”»é¢è¡¨ç¤ºã®å®Œäº†ã‚’å¾…ã¤
   glFinish();
 
-  // ƒJƒ‰[ƒoƒbƒtƒ@‚ğ“Ç‚İ‚Ş
+  // ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã‚’èª­ã¿è¾¼ã‚€
   glReadPixels(viewport[0], viewport[1], viewport[2], viewport[3],
     GL_BGR, GL_UNSIGNED_BYTE, buffer);
 
-  // “Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğƒtƒ@ƒCƒ‹‚É‘‚«‚Ş
+  // èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
   bool ret = ggSaveTga(viewport[2], viewport[3], 3, buffer, name);
 
-  // “Ç‚İ‚İ‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+  // èª­ã¿è¾¼ã¿ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
   delete[] buffer;
 
   return ret;
 }
 
 /*
-** ƒfƒvƒXƒoƒbƒtƒ@‚Ì“à—e‚ğ TGA ƒtƒ@ƒCƒ‹‚É•Û‘¶
+** ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’ TGA ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
 */
 bool gg::ggSaveDepth(const char *name)
 {
-  // Œ»İ‚Ìƒrƒ…[ƒ|[ƒg‚ÌƒTƒCƒY‚ğ“¾‚é
+  // ç¾åœ¨ã®ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®ã‚µã‚¤ã‚ºã‚’å¾—ã‚‹
   GLint viewport[4];
   glGetIntegerv(GL_VIEWPORT, viewport);
 
-  // ƒrƒ…[ƒ|[ƒg‚ÌƒTƒCƒY•ª‚Ìƒƒ‚ƒŠ‚ğŠm•Û‚·‚é
+  // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®ã‚µã‚¤ã‚ºåˆ†ã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã™ã‚‹
   size_t size = viewport[2] * viewport[3];
   GLubyte *buffer = 0;
   try
@@ -4737,57 +4737,57 @@ bool gg::ggSaveDepth(const char *name)
   }
   catch (std::bad_alloc e)
   {
-    // ƒƒ‚ƒŠŠm•Û‚É¸”s‚µ‚½
+    // ãƒ¡ãƒ¢ãƒªç¢ºä¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't allocate memory to write file: " << name << std::endl;
     return false;
   }
 
-  // ‰æ–Ê•\¦‚ÌŠ®—¹‚ğ‘Ò‚Â
+  // ç”»é¢è¡¨ç¤ºã®å®Œäº†ã‚’å¾…ã¤
   glFinish();
 
-  // ƒfƒvƒXƒoƒbƒtƒ@‚ğ“Ç‚İ‚Ş
+  // ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚’èª­ã¿è¾¼ã‚€
   glReadPixels(viewport[0], viewport[1], viewport[2], viewport[3],
     GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, buffer);
 
-  // “Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğƒtƒ@ƒCƒ‹‚É‘‚«‚Ş
+  // èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
   bool ret = ggSaveTga(viewport[2], viewport[3], 1, buffer, name);
 
-  // “Ç‚İ‚İ‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+  // èª­ã¿è¾¼ã¿ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
   delete[] buffer;
 
   return ret;
 }
 
 /*
-** TGA ƒtƒ@ƒCƒ‹ (8/16/24/32bit) ‚Ì“Ç‚İ‚İ
+** TGA ãƒ•ã‚¡ã‚¤ãƒ« (8/16/24/32bit) ã®èª­ã¿è¾¼ã¿
 */
 GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum *format)
 {
-  // ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   std::ifstream file(name, std::ios::binary);
   if (file.fail())
   {
-    // ŠJ‚¯‚È‚©‚Á‚½
+    // é–‹ã‘ãªã‹ã£ãŸ
     std::cerr << "Waring: Can't open file: " << name << std::endl;
     return 0;
   }
 
-  // ƒwƒbƒ_‚Ì“Ç‚İ‚İ
+  // ãƒ˜ãƒƒãƒ€ã®èª­ã¿è¾¼ã¿
   unsigned char header[18];
   file.read(reinterpret_cast<char *>(header), sizeof header);
   if (file.bad())
   {
-    // ƒwƒbƒ_‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚½
+    // ãƒ˜ãƒƒãƒ€ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't read file header: " << name << std::endl;
     file.close();
     return 0;
   }
 
-  // •‚Æ‚‚³
+  // å¹…ã¨é«˜ã•
   *width = header[13] << 8 | header[12];
   *height = header[15] << 8 | header[14];
 
-  // [“x
+  // æ·±åº¦
   size_t depth = header[16] / 8;
   switch (depth)
   {
@@ -4809,10 +4809,10 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
     return 0;
   }
 
-  // ƒf[ƒ^ƒTƒCƒY
+  // ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º
   size_t size = *width * *height * depth;
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLubyte *buffer = 0;
   try
   {
@@ -4820,13 +4820,13 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
   }
   catch (std::bad_alloc e)
   {
-    // ƒƒ‚ƒŠ‚ª‘«‚ç‚È‚©‚Á‚½
+    // ãƒ¡ãƒ¢ãƒªãŒè¶³ã‚‰ãªã‹ã£ãŸ
     std::cerr << "Waring: Too large file: " << name << std::endl;
     file.close();
     return 0;
   }
 
-  // ƒf[ƒ^‚Ì“Ç‚İ‚İ
+  // ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
   if (header[2] & 8)
   {
     // RLE
@@ -4858,35 +4858,35 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
   }
   else
   {
-    // ”ñˆ³k
+    // éåœ§ç¸®
     file.read(reinterpret_cast<char *>(buffer), size);
   }
 
-  // “Ç‚İ‚İƒ`ƒFƒbƒN
+  // èª­ã¿è¾¼ã¿ãƒã‚§ãƒƒã‚¯
   if (file.bad())
   {
-    // “Ç‚İ‚İ‚É¸”s‚µ‚½
+    // èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ãŸ
     std::cerr << "Waring: Can't read image data: " << name << std::endl;
   }
 
-  // ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
   file.close();
 
   return buffer;
 }
 
 /*
-** ƒeƒNƒXƒ`ƒƒƒ}ƒbƒsƒ“ƒO—p‚Ìƒf[ƒ^‚Ì“Ç‚İ‚İ
+** ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã®ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 */
 void gg::ggLoadTexture(GLsizei width, GLsizei height, GLenum internal, GLenum format, const GLvoid *image)
 {
-  // ƒAƒ‹ƒtƒ@ƒ`ƒƒƒ“ƒlƒ‹‚ª‚Â‚¢‚Ä‚¢‚ê‚Î 4 ƒoƒCƒg‹«ŠE‚Éİ’è‚·‚é
+  // ã‚¢ãƒ«ãƒ•ã‚¡ãƒãƒ£ãƒ³ãƒãƒ«ãŒã¤ã„ã¦ã„ã‚Œã° 4 ãƒã‚¤ãƒˆå¢ƒç•Œã«è¨­å®šã™ã‚‹
   glPixelStorei(GL_UNPACK_ALIGNMENT, (format == GL_BGRA || format == GL_RGBA) ? 4 : 1);
 
-  // ƒeƒNƒXƒ`ƒƒ‚ğŠ„‚è“–‚Ä‚é
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å‰²ã‚Šå½“ã¦ã‚‹
   glTexImage2D(GL_TEXTURE_2D, 0, internal, width, height, 0, format, GL_UNSIGNED_BYTE, image);
 
-  // ƒoƒCƒŠƒjƒAiƒ~ƒbƒvƒ}ƒbƒv‚È‚µjCƒGƒbƒW‚ÅƒNƒ‰ƒ“ƒv
+  // ãƒã‚¤ãƒªãƒ‹ã‚¢ï¼ˆãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ãªã—ï¼‰ï¼Œã‚¨ãƒƒã‚¸ã§ã‚¯ãƒ©ãƒ³ãƒ—
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -4894,20 +4894,20 @@ void gg::ggLoadTexture(GLsizei width, GLsizei height, GLenum internal, GLenum fo
 }
 
 /*
-** ƒeƒNƒXƒ`ƒƒƒ}ƒbƒsƒ“ƒO—p‚Ì TGA ‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+** ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã® TGA ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 */
 bool gg::ggLoadImage(const char *name, GLenum internal)
 {
-  // ‰æ‘œƒTƒCƒY
+  // ç”»åƒã‚µã‚¤ã‚º
   GLsizei width, height;
 
-  // ‰æ‘œƒtƒH[ƒ}ƒbƒg
+  // ç”»åƒãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
   GLenum format;
 
-  // ‰æ‘œ‚Ì“Ç‚İ‚İæ
+  // ç”»åƒã®èª­ã¿è¾¼ã¿å…ˆ
   GLubyte *image = ggLoadTga(name, &width, &height, &format);
 
-  // internal == 0 ‚È‚ç“à•”ƒtƒH[ƒ}ƒbƒg‚ğ“Ç‚İ‚ñ‚¾ƒtƒ@ƒCƒ‹‚É‡‚í‚¹‚é
+  // internal == 0 ãªã‚‰å†…éƒ¨ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’èª­ã¿è¾¼ã‚“ã ãƒ•ã‚¡ã‚¤ãƒ«ã«åˆã‚ã›ã‚‹
   if (internal == 0)
   {
     switch(format)
@@ -4924,33 +4924,33 @@ bool gg::ggLoadImage(const char *name, GLenum internal)
     }
   }
 
-  // ƒeƒNƒXƒ`ƒƒƒƒ‚ƒŠ‚Ö‚Ì“Ç‚İ‚İ
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¡ãƒ¢ãƒªã¸ã®èª­ã¿è¾¼ã¿
   ggLoadTexture(width, height, internal, format, image);
 
-  // “Ç‚İ‚İ‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğŠJ•ú‚·‚é
+  // èª­ã¿è¾¼ã¿ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ã™ã‚‹
   delete[] image;
 
   return true;
 }
 
 /*
-** ‚‚³ƒ}ƒbƒv—p‚Ì TGA ‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚ñ‚Å–@üƒ}ƒbƒv‚ğì¬‚·‚é
+** é«˜ã•ãƒãƒƒãƒ—ç”¨ã® TGA ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã‚“ã§æ³•ç·šãƒãƒƒãƒ—ã‚’ä½œæˆã™ã‚‹
 */
 bool gg::ggLoadHeight(const char *name, float nz, GLenum internal)
 {
-  // ‰æ‘œƒTƒCƒY
+  // ç”»åƒã‚µã‚¤ã‚º
   GLsizei width, height;
 
-  // ‰æ‘œƒtƒH[ƒ}ƒbƒg
+  // ç”»åƒãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
   GLenum format;
 
-  // ‰æ‘œ‚Ì“Ç‚İ‚İæ
+  // ç”»åƒã®èª­ã¿è¾¼ã¿å…ˆ
   GLubyte *hmap = ggLoadTga(name, &width, &height, &format);
 
-  // ‰æ‘œ‚ª“Ç‚İ‚ß‚È‚©‚Á‚½‚ç–ß‚é
+  // ç”»åƒãŒèª­ã¿è¾¼ã‚ãªã‹ã£ãŸã‚‰æˆ»ã‚‹
   if (hmap == 0) return false;
 
-  // ‰æ‘f‚ÌƒoƒCƒg”
+  // ç”»ç´ ã®ãƒã‚¤ãƒˆæ•°
   int bytes;
   switch (format)
   {
@@ -4971,13 +4971,13 @@ bool gg::ggLoadHeight(const char *name, float nz, GLenum internal)
     break;
   }
 
-  // ì¬‚·‚é–@üƒ}ƒbƒv
+  // ä½œæˆã™ã‚‹æ³•ç·šãƒãƒƒãƒ—
   GLfloat (*nmap)[4] = 0;
 
-  // ƒƒ‚ƒŠƒTƒCƒY
+  // ãƒ¡ãƒ¢ãƒªã‚µã‚¤ã‚º
   GLsizei maxsize = width * height;
 
-  // ƒƒ‚ƒŠ‚ğŠm•Û‚·‚é
+  // ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã™ã‚‹
   try
   {
     nmap = new GLfloat[maxsize][4];
@@ -4988,7 +4988,7 @@ bool gg::ggLoadHeight(const char *name, float nz, GLenum internal)
     return false;
   }
 
-  // –@üƒ}ƒbƒv‚Ìì¬
+  // æ³•ç·šãƒãƒƒãƒ—ã®ä½œæˆ
   for (GLsizei i = 0; i < maxsize; ++i)
   {
     int x = i % width;
@@ -4997,21 +4997,21 @@ bool gg::ggLoadHeight(const char *name, float nz, GLenum internal)
     int u = (y + (x + 1) % width) * bytes;
     int v = ((y + width) % maxsize + x) * bytes;
 
-    // —×Ú‚·‚é‰æ‘f‚Æ‚Ì’l‚Ì·‚ğ–@ü‚Ì¬•ª‚É—p‚¢‚é
+    // éš£æ¥ã™ã‚‹ç”»ç´ ã¨ã®å€¤ã®å·®ã‚’æ³•ç·šã®æˆåˆ†ã«ç”¨ã„ã‚‹
     float nx = static_cast<float>(hmap[u] - hmap[o]);
     float ny = static_cast<float>(hmap[v] - hmap[o]);
 
-    // –@ü‚Ì’·‚³‚ğ‹‚ß‚Ä‚¨‚­
+    // æ³•ç·šã®é•·ã•ã‚’æ±‚ã‚ã¦ãŠã
     float nl = sqrt(nx * nx + ny * ny + nz * nz);
 
-    // –@ü‚ğ‹‚ß‚é
+    // æ³•ç·šã‚’æ±‚ã‚ã‚‹
     nmap[i][0] = nx / nl;
     nmap[i][1] = ny / nl;
     nmap[i][2] = nz / nl;
     nmap[i][3] = hmap[o];
   }
 
-  // “à•”ƒtƒH[ƒ}ƒbƒg‚ª•‚“®¬”“_ƒeƒNƒXƒ`ƒƒ‚Å‚È‚¯‚ê‚Î [0,1] ‚É•ÏŠ·‚·‚é
+  // å†…éƒ¨ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŒæµ®å‹•å°æ•°ç‚¹ãƒ†ã‚¯ã‚¹ãƒãƒ£ã§ãªã‘ã‚Œã° [0,1] ã«å¤‰æ›ã™ã‚‹
   if (
     internal != GL_RGB16F  &&
     internal != GL_RGBA16F &&
@@ -5028,34 +5028,34 @@ bool gg::ggLoadHeight(const char *name, float nz, GLenum internal)
     }
   }
 
-  // ‚‚³ƒ}ƒbƒv‚Ì“Ç‚İ‚İ‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğŠJ•ú‚·‚é
+  // é«˜ã•ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ã™ã‚‹
   delete[] hmap;
 
-  // nmap ‚ª GLfloat ‚È‚Ì‚Å 4 ƒoƒCƒg‹«ŠE‚Éİ’è
+  // nmap ãŒ GLfloat ãªã®ã§ 4 ãƒã‚¤ãƒˆå¢ƒç•Œã«è¨­å®š
   glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
-  // ƒeƒNƒXƒ`ƒƒ‚ğŠ„‚è“–‚Ä‚é
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å‰²ã‚Šå½“ã¦ã‚‹
   glTexImage2D(GL_TEXTURE_2D, 0, internal, width, height, 0, GL_RGBA, GL_FLOAT, nmap);
 
-  // ƒoƒCƒŠƒjƒAiƒ~ƒbƒvƒ}ƒbƒv‚È‚µjCƒGƒbƒW‚ÅƒNƒ‰ƒ“ƒv
+  // ãƒã‚¤ãƒªãƒ‹ã‚¢ï¼ˆãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ãªã—ï¼‰ï¼Œã‚¨ãƒƒã‚¸ã§ã‚¯ãƒ©ãƒ³ãƒ—
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-  // –@üƒ}ƒbƒv‚Ìì¬‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+  // æ³•ç·šãƒãƒƒãƒ—ã®ä½œæˆã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
   delete[] nmap;
 
   return true;
 }
 
 /*
-** OŠpŒ`•ªŠ„‚³‚ê‚½ OBJ ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+** ä¸‰è§’å½¢åˆ†å‰²ã•ã‚ŒãŸ OBJ ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 */
 bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&norm)[3],
   GLuint &nf, GLuint (*&face)[3], bool normalize)
 {
-  // OBJ ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+  // OBJ ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
   std::ifstream file(name, std::ios::binary);
   if (file.fail())
   {
@@ -5063,15 +5063,15 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     return false;
   }
 
-  // ˆês“Ç‚İ‚İ—p‚Ìƒoƒbƒtƒ@
+  // ä¸€è¡Œèª­ã¿è¾¼ã¿ç”¨ã®ãƒãƒƒãƒ•ã‚¡
   std::string line;
 
-  // ƒf[ƒ^‚Ì”‚ÆÀ•W’l‚ÌÅ¬’lEÅ‘å’l
+  // ãƒ‡ãƒ¼ã‚¿ã®æ•°ã¨åº§æ¨™å€¤ã®æœ€å°å€¤ãƒ»æœ€å¤§å€¤
   float xmin, xmax, ymin, ymax, zmin, zmax;
   xmax = ymax = zmax = -(xmin = ymin = zmin = FLT_MAX);
   nv = nf = 0;
 
-  // ƒf[ƒ^‚ğ“Ç‚İ‚Ş
+  // ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
   while (std::getline(file, line))
   {
     std::istringstream str(line);
@@ -5080,13 +5080,13 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
 
     if (op == "v")
     {
-      // ’¸“_ˆÊ’u
+      // é ‚ç‚¹ä½ç½®
       float x, y, z;
 
-      // ’¸“_ˆÊ’u‚ÍƒXƒy[ƒX‚Å‹æØ‚ç‚ê‚Ä‚¢‚é
+      // é ‚ç‚¹ä½ç½®ã¯ã‚¹ãƒšãƒ¼ã‚¹ã§åŒºåˆ‡ã‚‰ã‚Œã¦ã„ã‚‹
       str >> x >> y >> z;
 
-      // ˆÊ’u‚ÌÅ‘å’l‚ÆÅ¬’l‚ğ‹‚ß‚é (AABB)
+      // ä½ç½®ã®æœ€å¤§å€¤ã¨æœ€å°å€¤ã‚’æ±‚ã‚ã‚‹ (AABB)
       if (x < xmin) xmin = x;
       if (x > xmax) xmax = x;
 
@@ -5096,17 +5096,17 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
       if (z < zmin) zmin = z;
       if (z > zmax) zmax = z;
 
-      // ’¸“_”‚ÌƒJƒEƒ“ƒg
+      // é ‚ç‚¹æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
       ++nv;
     }
     else if (op == "f")
     {
-      // –Ê”‚ÌƒJƒEƒ“ƒg
+      // é¢æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
       ++nf;
     }
   }
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat (*fnorm)[3] = 0;
   pos = norm = 0;
   face = 0;
@@ -5128,7 +5128,7 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     return false;
   }
 
-  // ˆÊ’u‚Æ‘å‚«‚³‚Ì³‹K‰»‚Ì‚½‚ß‚ÌŒW”
+  // ä½ç½®ã¨å¤§ãã•ã®æ­£è¦åŒ–ã®ãŸã‚ã®ä¿‚æ•°
   GLfloat scale, cx, cy, cz;
   if (normalize)
   {
@@ -5149,11 +5149,11 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     cx = cy = cz = 0.0f;
   }
 
-  // ƒtƒ@ƒCƒ‹‚ÌŠª‚«–ß‚µ
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã®å·»ãæˆ»ã—
   file.clear();
   file.seekg(0L, std::ios::beg);
 
-  // ƒf[ƒ^‚Ì“Ç‚İ‚İ
+  // ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
   nv = nf = 0;
   while (std::getline(file, line))
   {
@@ -5163,52 +5163,52 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
 
     if (op == "v")
     {
-      // ’¸“_ˆÊ’u
+      // é ‚ç‚¹ä½ç½®
       float x, y, z;
 
-      // ’¸“_ˆÊ’u‚ÍƒXƒy[ƒX‚Å‹æØ‚ç‚ê‚Ä‚¢‚é
+      // é ‚ç‚¹ä½ç½®ã¯ã‚¹ãƒšãƒ¼ã‚¹ã§åŒºåˆ‡ã‚‰ã‚Œã¦ã„ã‚‹
       str >> x >> y >> z;
 
-      // ˆÊ’u‚Æ‘å‚«‚³‚Ì³‹K‰»
+      // ä½ç½®ã¨å¤§ãã•ã®æ­£è¦åŒ–
       pos[nv][0] = (x - cx) * scale;
       pos[nv][1] = (y - cy) * scale;
       pos[nv][2] = (z - cz) * scale;
 
-      // ’¸“_”‚ÌƒJƒEƒ“ƒg
+      // é ‚ç‚¹æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
       ++nv;
     }
     else if (op == "f")
     {
-      // ’¸“_À•W”Ô†
+      // é ‚ç‚¹åº§æ¨™ç•ªå·
       std::string l, m, n;
 
-      // ’¸“_À•W”Ô†/ƒeƒNƒXƒ`ƒƒÀ•W”Ô†/–@ü”Ô†‚Ì‘g‚ğæ‚èo‚·
+      // é ‚ç‚¹åº§æ¨™ç•ªå·/ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ç•ªå·/æ³•ç·šç•ªå·ã®çµ„ã‚’å–ã‚Šå‡ºã™
       str >> l >> m >> n;
 
-      // ’¸“_À•W”Ô†‚¾‚¯®”‰»‚·‚é
+      // é ‚ç‚¹åº§æ¨™ç•ªå·ã ã‘æ•´æ•°åŒ–ã™ã‚‹
       face[nf][0] = atoi(l.c_str()) - 1;
       face[nf][1] = atoi(m.c_str()) - 1;
       face[nf][2] = atoi(n.c_str()) - 1;
 
-      // –Ê”‚ÌƒJƒEƒ“ƒg
+      // é¢æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
       ++nf;
     }
   }
 
-  // ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İƒ`ƒFƒbƒN
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ãƒã‚§ãƒƒã‚¯
   if (file.bad())
   {
-    // ‚¤‚Ü‚­“Ç‚İ‚ß‚È‚©‚Á‚½
+    // ã†ã¾ãèª­ã¿è¾¼ã‚ãªã‹ã£ãŸ
     std::cerr << "Warning: Can't read OBJ file: " << name << std::endl;
   }
   file.close();
 
-  // –Ê–@ü‚ÌZo
+  // é¢æ³•ç·šã®ç®—å‡º
   for (GLuint f = 0; f < nf; ++f)
   {
     GLuint v0 = face[f][0], v1 = face[f][1], v2 = face[f][2];
 
-    // v1 - v0, v2 - v0 ‚ğ‹‚ß‚é
+    // v1 - v0, v2 - v0 ã‚’æ±‚ã‚ã‚‹
     GLfloat dx1 = pos[v1][0] - pos[v0][0];
     GLfloat dy1 = pos[v1][1] - pos[v0][1];
     GLfloat dz1 = pos[v1][2] - pos[v0][2];
@@ -5216,30 +5216,30 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     GLfloat dy2 = pos[v2][1] - pos[v0][1];
     GLfloat dz2 = pos[v2][2] - pos[v0][2];
 
-    // ŠOÏ‚É‚æ‚è–Ê–@ü‚ğ‹‚ß‚é
+    // å¤–ç©ã«ã‚ˆã‚Šé¢æ³•ç·šã‚’æ±‚ã‚ã‚‹
     fnorm[f][0] = dy1 * dz2 - dz1 * dy2;
     fnorm[f][1] = dz1 * dx2 - dx1 * dz2;
     fnorm[f][2] = dx1 * dy2 - dy1 * dx2;
   }
 
-  // ’¸“_–@ü‚Ì’l‚ğ 0 ‚É‚µ‚Ä‚¨‚­
+  // é ‚ç‚¹æ³•ç·šã®å€¤ã‚’ 0 ã«ã—ã¦ãŠã
   for (GLuint v = 0; v < nv; ++v)
   {
     norm[v][0] = norm[v][1] = norm[v][2] = 0.0f;
   }
 
-  // ’¸“_–@ü‚ÌZo
+  // é ‚ç‚¹æ³•ç·šã®ç®—å‡º
   for (GLuint f = 0; f < nf; ++f)
   {
-    // ’¸“_À•W”Ô†
+    // é ‚ç‚¹åº§æ¨™ç•ªå·
     GLuint v0 = face[f][0], v1 = face[f][1], v2 = face[f][2];
 
-    // –Ê–@ü
+    // é¢æ³•ç·š
     GLfloat x = fnorm[f][0];
     GLfloat y = fnorm[f][1];
     GLfloat z = fnorm[f][2];
 
-    // –Ê–@ü‚ğ’¸“_–@ü‚ÉÏZ‚·‚é
+    // é¢æ³•ç·šã‚’é ‚ç‚¹æ³•ç·šã«ç©ç®—ã™ã‚‹
     norm[v0][0] += x;
     norm[v0][1] += y;
     norm[v0][2] += z;
@@ -5253,13 +5253,13 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     norm[v2][2] += z;
   }
 
-  // ’¸“_–@ü‚Ì³‹K‰»
+  // é ‚ç‚¹æ³•ç·šã®æ­£è¦åŒ–
   for (GLuint v = 0; v < nv; ++v)
   {
-    // ’¸“_–@ü‚Ì’·‚³
+    // é ‚ç‚¹æ³•ç·šã®é•·ã•
     GLfloat a = sqrt(norm[v][0] * norm[v][0] + norm[v][1] * norm[v][1] + norm[v][2] * norm[v][2]);
 
-    // ’¸“_–@ü‚Ì³‹K‰»
+    // é ‚ç‚¹æ³•ç·šã®æ­£è¦åŒ–
     if (a != 0.0)
     {
       norm[v][0] /= a;
@@ -5273,7 +5273,7 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
 
 namespace gg
 {
-  // ƒ}ƒeƒŠƒAƒ‹
+  // ãƒãƒ†ãƒªã‚¢ãƒ«
   struct rgb { float r, g, b; };
   struct mat
   {
@@ -5284,27 +5284,27 @@ namespace gg
     float dis;    // dissolve
   };
 
-  // “Ç‚İ‚İ—p‚Ìƒeƒ“ƒ|ƒ‰ƒŠƒf[ƒ^‚ÌŒ`®
-  struct vec      // ƒxƒNƒgƒ‹
+  // èª­ã¿è¾¼ã¿ç”¨ã®ãƒ†ãƒ³ãƒãƒ©ãƒªãƒ‡ãƒ¼ã‚¿ã®å½¢å¼
+  struct vec      // ãƒ™ã‚¯ãƒˆãƒ«
   {
     float x, y, z;
   };
-  struct vtx      // ’¸“_‘®«
+  struct vtx      // é ‚ç‚¹å±æ€§
   {
-    vec pos;      // ’¸“_ˆÊ’u
-    vec norm;     // ’¸“_–@ü
+    vec pos;      // é ‚ç‚¹ä½ç½®
+    vec norm;     // é ‚ç‚¹æ³•ç·š
   };
-  struct fac      // –Êƒf[ƒ^
+  struct fac      // é¢ãƒ‡ãƒ¼ã‚¿
   {
-    GLuint v[3];  // ’¸“_”Ô†
-    GLuint n[3];  // –@ü”Ô†
-    vec norm;     // –Ê–@ü
+    GLuint v[3];  // é ‚ç‚¹ç•ªå·
+    GLuint n[3];  // æ³•ç·šç•ªå·
+    vec norm;     // é¢æ³•ç·š
   };
-  struct grp      // –ÊƒOƒ‹[ƒv
+  struct grp      // é¢ã‚°ãƒ«ãƒ¼ãƒ—
   {
-    GLuint b;     // –ÊƒOƒ‹[ƒv‚ÌŠJn”Ô†
-    GLuint c;     // –ÊƒOƒ‹[ƒv‚Ì’¸“_”
-    const mat *m; // –ÊƒOƒ‹[ƒv‚Ìƒ}ƒeƒŠƒAƒ‹
+    GLuint b;     // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é–‹å§‹ç•ªå·
+    GLuint c;     // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é ‚ç‚¹æ•°
+    const mat *m; // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®ãƒãƒ†ãƒªã‚¢ãƒ«
     grp(GLuint begin, GLuint count, const mat &material)
     {
       b = begin;
@@ -5315,18 +5315,18 @@ namespace gg
 }
 
 /*
-** OŠpŒ`•ªŠ„‚³‚ê‚½ OBJ ƒtƒ@ƒCƒ‹‚Æ MTL ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+** ä¸‰è§’å½¢åˆ†å‰²ã•ã‚ŒãŸ OBJ ãƒ•ã‚¡ã‚¤ãƒ«ã¨ MTL ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 */
 bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
   GLfloat (*&amb)[4], GLfloat (*&diff)[4], GLfloat (*&spec)[4], GLfloat *&shi,
   GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&norm)[3], bool normalize)
 {
-  // ƒtƒ@ƒCƒ‹ƒpƒX‚©‚çƒfƒBƒŒƒNƒgƒŠ–¼‚ğæ‚èo‚·
+  // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‹ã‚‰ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã‚’å–ã‚Šå‡ºã™
   std::string path(name);
   size_t base = path.find_last_of("/\\");
   std::string dirname = (base == std::string::npos) ? "" : path.substr(base + 1);
 
-  // OBJ ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+  // OBJ ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
   std::ifstream file(path.c_str());
   if (file.fail())
   {
@@ -5334,12 +5334,12 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     return false;
   }
 
-  // ƒ}ƒeƒŠƒAƒ‹
+  // ãƒãƒ†ãƒªã‚¢ãƒ«
   std::map<std::string, mat> mtl;
   static const char defmtl[] = "Default";
   std::string mtlname(defmtl);
 
-  // ƒfƒtƒHƒ‹ƒg‚Ìƒ}ƒeƒŠƒAƒ‹
+  // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒãƒ†ãƒªã‚¢ãƒ«
   mtl[mtlname].amb.r = 0.1f;
   mtl[mtlname].amb.g = 0.1f;
   mtl[mtlname].amb.b = 0.1f;
@@ -5352,42 +5352,42 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
   mtl[mtlname].shi = 60.0f;
   mtl[mtlname].dis = 1.0f;
 
-  // “Ç‚İ‚İ—p‚Ìˆê‹L‰¯—Ìˆæ
+  // èª­ã¿è¾¼ã¿ç”¨ã®ä¸€æ™‚è¨˜æ†¶é ˜åŸŸ
   std::vector<vtx> _pos;
   std::vector<vec> _norm;
   std::vector<fac> _face;
   std::vector<grp> _group;
 
-  // À•W’l‚ÌÅ¬’lEÅ‘å’l
+  // åº§æ¨™å€¤ã®æœ€å°å€¤ãƒ»æœ€å¤§å€¤
   GLuint groupbegin = 0;
   float xmin, xmax, ymin, ymax, zmin, zmax;
   xmax = ymax = zmax = -(xmin = ymin = zmin = FLT_MAX);
 
-  // ˆês“Ç‚İ‚İ—p‚Ìƒoƒbƒtƒ@
+  // ä¸€è¡Œèª­ã¿è¾¼ã¿ç”¨ã®ãƒãƒƒãƒ•ã‚¡
   std::string line;
 
-  // ƒf[ƒ^‚Ì“Ç‚İ‚İ
+  // ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
   while (std::getline(file, line))
   {
-    // ÅŒã‚Ì•¶š‚ª \r ‚È‚çíœ‚·‚é
+    // æœ€å¾Œã®æ–‡å­—ãŒ \r ãªã‚‰å‰Šé™¤ã™ã‚‹
     if (*(line.end() - 1) == '\r') line.erase(--line.end());
 
-    // ˆês‚ğ•¶š—ñƒXƒgƒŠ[ƒ€‚É“ü‚ê‚é
+    // ä¸€è¡Œã‚’æ–‡å­—åˆ—ã‚¹ãƒˆãƒªãƒ¼ãƒ ã«å…¥ã‚Œã‚‹
     std::istringstream str(line);
 
-    // Å‰‚Ìƒg[ƒNƒ“‚ğ–½—ß (op) ‚Æ‚İ‚È‚·
+    // æœ€åˆã®ãƒˆãƒ¼ã‚¯ãƒ³ã‚’å‘½ä»¤ (op) ã¨ã¿ãªã™
     std::string op;
     str >> op;
 
     if (op == "v")
     {
-      // ’¸“_ˆÊ’u
+      // é ‚ç‚¹ä½ç½®
       vtx v;
 
-      // ’¸“_ˆÊ’u‚ÍƒXƒy[ƒX‚Å‹æØ‚ç‚ê‚Ä‚¢‚é
+      // é ‚ç‚¹ä½ç½®ã¯ã‚¹ãƒšãƒ¼ã‚¹ã§åŒºåˆ‡ã‚‰ã‚Œã¦ã„ã‚‹
       str >> v.pos.x >> v.pos.y >> v.pos.z;
 
-      // ’¸“_ˆÊ’u‚ÌÅ¬’l‚ÆÅ‘å’l‚ğ‹‚ß‚é
+      // é ‚ç‚¹ä½ç½®ã®æœ€å°å€¤ã¨æœ€å¤§å€¤ã‚’æ±‚ã‚ã‚‹
       if (v.pos.x < xmin) xmin = v.pos.x;
       if (v.pos.x > xmax) xmax = v.pos.x;
 
@@ -5397,71 +5397,71 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
       if (v.pos.z < zmin) zmin = v.pos.z;
       if (v.pos.z > zmax) zmax = v.pos.z;
 
-      // ’¸“_ˆÊ’u‚ğ‹L˜^‚·‚é
+      // é ‚ç‚¹ä½ç½®ã‚’è¨˜éŒ²ã™ã‚‹
       _pos.push_back(v);
     }
     else if (op == "vn")
     {
-      // ’¸“_–@ü
+      // é ‚ç‚¹æ³•ç·š
       vec norm;
 
-      // ’¸“_–@ü‚ÍƒXƒy[ƒX‚Å‹æØ‚ç‚ê‚Ä‚¢‚é
+      // é ‚ç‚¹æ³•ç·šã¯ã‚¹ãƒšãƒ¼ã‚¹ã§åŒºåˆ‡ã‚‰ã‚Œã¦ã„ã‚‹
       str >> norm.x >> norm.y >> norm.z;
 
-      // ’¸“_–@ü‚ğ‹L˜^‚·‚é
+      // é ‚ç‚¹æ³•ç·šã‚’è¨˜éŒ²ã™ã‚‹
       _norm.push_back(norm);
     }
     else if (op == "f")
     {
-      // –Ê (OŠpŒ`) ƒf[ƒ^
+      // é¢ (ä¸‰è§’å½¢) ãƒ‡ãƒ¼ã‚¿
       fac f;
 
-      //@O’¸“_‚Ì‚»‚ê‚¼‚ê‚É‚Â‚¢‚Ä
+      //ã€€ä¸‰é ‚ç‚¹ã®ãã‚Œãã‚Œã«ã¤ã„ã¦
       for (int i = 0; i < 3; ++i)
       {
-        // ‚P€–Úæ‚èo‚·
+        // ï¼‘é …ç›®å–ã‚Šå‡ºã™
         std::string tmp;
         str >> tmp;
 
-        // €–Ú‚ÌÅ‰‚Ì—v‘f‚Í’¸“_À•W”Ô† (0 ‚©‚çn‚Ü‚é)
+        // é …ç›®ã®æœ€åˆã®è¦ç´ ã¯é ‚ç‚¹åº§æ¨™ç•ªå· (0 ã‹ã‚‰å§‹ã¾ã‚‹)
         f.v[i] = atoi(tmp.c_str()) - 1;
         f.n[i] = 0;
 
-        // c‚è‚Ì€–Ú‚ğæ‚èo‚·
+        // æ®‹ã‚Šã®é …ç›®ã‚’å–ã‚Šå‡ºã™
         size_t pos = tmp.find('/', 0);
         if (pos != std::string::npos)
         {
-          // “ñ‚Â–Ú‚Ì€–Ú‚Í”ò‚Î‚·
+          // äºŒã¤ç›®ã®é …ç›®ã¯é£›ã°ã™
           pos = tmp.find('/', pos + 1);
           if (pos != std::string::npos)
           {
-            // O‚Â–Ú‚Ì€–Ú‚Í–@ü”Ô† (0 ‚È‚ç–@ü‚ÌŠ„‚è“–‚Ä‚È‚µ)
+            // ä¸‰ã¤ç›®ã®é …ç›®ã¯æ³•ç·šç•ªå· (0 ãªã‚‰æ³•ç·šã®å‰²ã‚Šå½“ã¦ãªã—)
             f.n[i] = atoi(tmp.substr(pos + 1).c_str());
           }
         }
       }
 
-      // –Êƒf[ƒ^‚Ì‹L˜^‚Š
+      // é¢ãƒ‡ãƒ¼ã‚¿ã®è¨˜éŒ²ï½Š
       _face.push_back(f);
     }
     else if (op == "usemtl")
     {
-      // –ÊƒOƒ‹[ƒv‚Ì–Ê”
+      // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é¢æ•°
       GLuint groupcount = static_cast<GLuint>(_face.size()) * 3 - groupbegin;
       if (groupcount > 0)
       {
-        // –ÊƒOƒ‹[ƒv‚Ì’¸“_ƒf[ƒ^‚ÌŠJn”Ô†‚Æ”C‚¨‚æ‚Ñ‚»‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ‹L˜^‚·‚é
+        // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é–‹å§‹ç•ªå·ã¨æ•°ï¼ŒãŠã‚ˆã³ãã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨˜éŒ²ã™ã‚‹
         grp b(groupbegin, groupcount, mtl[mtlname]);
         _group.push_back(b);
 
-        // Ÿ‚Ì–ÊƒOƒ‹[ƒv‚ÌŠJn”Ô†‚ğ‹‚ß‚Ä‚¨‚­
+        // æ¬¡ã®é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é–‹å§‹ç•ªå·ã‚’æ±‚ã‚ã¦ãŠã
         groupbegin += groupcount;
       }
 
-      // ƒ}ƒeƒŠƒAƒ‹–¼‚Ìæ‚èo‚µ
+      // ãƒãƒ†ãƒªã‚¢ãƒ«åã®å–ã‚Šå‡ºã—
       str >> mtlname;
 
-      // ƒ}ƒeƒŠƒAƒ‹‚Ì‘¶İƒ`ƒFƒbƒN
+      // ãƒãƒ†ãƒªã‚¢ãƒ«ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯
       if (mtl.find(mtlname) == mtl.end())
       {
         std::cerr << "Warning: Undefined material: " << mtlname << std::endl;
@@ -5474,13 +5474,13 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     }
     else if (op == "mtllib")
     {
-      // MTL ƒtƒ@ƒCƒ‹‚ÌƒpƒX–¼‚ğì‚é
+      // MTL ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹åã‚’ä½œã‚‹
       str >> std::ws;
       std::string mtlpath;
       std::getline(str, mtlpath);
       mtlpath = dirname + mtlpath;
 
-      // MTL ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+      // MTL ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
       std::ifstream mtlfile(mtlpath.c_str(), std::ios::binary);
       if (mtlfile.fail())
       {
@@ -5488,10 +5488,10 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
       }
       else
       {
-        // ˆês“Ç‚İ‚İ—p‚Ìƒoƒbƒtƒ@
+        // ä¸€è¡Œèª­ã¿è¾¼ã¿ç”¨ã®ãƒãƒƒãƒ•ã‚¡
         std::string mtlline;
 
-        // ƒ}ƒeƒŠƒAƒ‹ƒf[ƒ^‚ğ“Ç‚İ‚Ş
+        // ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
         while (std::getline(mtlfile, mtlline))
         {
           std::istringstream mtlstr(mtlline);
@@ -5500,41 +5500,41 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
 
           if (mtlop == "newmtl")
           {
-            // V‹Kƒ}ƒeƒŠƒAƒ‹–¼‚ğo—Í‚·‚é
+            // æ–°è¦ãƒãƒ†ãƒªã‚¢ãƒ«åã‚’å‡ºåŠ›ã™ã‚‹
             mtlstr >> mtlname;
             std::cerr << "newmtl: " << mtlname << std::endl;
           }
           else if (mtlop == "Ka")
           {
-            // ŠÂ‹«Œõ‚Ì”½ËŒW”‚ğ“o˜^‚·‚é
+            // ç’°å¢ƒå…‰ã®åå°„ä¿‚æ•°ã‚’ç™»éŒ²ã™ã‚‹
             mtlstr >> mtl[mtlname].amb.r >> mtl[mtlname].amb.g >> mtl[mtlname].amb.b;
           }
           else if (mtlop == "Kd")
           {
-            // ŠgU”½ËŒW”‚ğ“o˜^‚·‚é
+            // æ‹¡æ•£åå°„ä¿‚æ•°ã‚’ç™»éŒ²ã™ã‚‹
             mtlstr >> mtl[mtlname].diff.r >> mtl[mtlname].diff.g >> mtl[mtlname].diff.b;
           }
           else if (mtlop == "Ks")
           {
-            // ‹¾–Ê”½ËŒW”‚ğ“o˜^‚·‚é
+            // é¡é¢åå°„ä¿‚æ•°ã‚’ç™»éŒ²ã™ã‚‹
             mtlstr >> mtl[mtlname].spec.r >> mtl[mtlname].spec.g >> mtl[mtlname].spec.b;
           }
           else if (mtlop == "Ns")
           {
-            // ‹P‚«ŒW”‚ğ“o˜^‚·‚é
+            // è¼ãä¿‚æ•°ã‚’ç™»éŒ²ã™ã‚‹
             mtlstr >> mtl[mtlname].shi;
           }
           else if (mtlop == "d")
           {
-            // •s“§–¾“x‚ğ“o˜^‚·‚é
+            // ä¸é€æ˜åº¦ã‚’ç™»éŒ²ã™ã‚‹
             mtlstr >> mtl[mtlname].dis;
           }
         }
 
-        // MTL ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İƒ`ƒFƒbƒN
+        // MTL ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ãƒã‚§ãƒƒã‚¯
         if (mtlfile.bad())
         {
-          // MTL ƒtƒ@ƒCƒ‹‚ğ‚¤‚Ü‚­“Ç‚İ‚ß‚È‚©‚Á‚½
+          // MTL ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã†ã¾ãèª­ã¿è¾¼ã‚ãªã‹ã£ãŸ
           std::cerr << "Warning: Can't read MTL file: " << mtlpath << std::endl;
         }
         mtlfile.close();
@@ -5542,31 +5542,31 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     }
   }
 
-  // ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İƒ`ƒFƒbƒN
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ãƒã‚§ãƒƒã‚¯
   if (file.bad())
   {
-    // OBJ ƒtƒ@ƒCƒ‹‚ğ‚¤‚Ü‚­“Ç‚İ‚ß‚È‚©‚Á‚½
+    // OBJ ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã†ã¾ãèª­ã¿è¾¼ã‚ãªã‹ã£ãŸ
     std::cerr << "Warning: Can't read OBJ file: " << path << std::endl;
   }
   else
   {
-    // ÅŒã‚Ì–ÊƒOƒ‹[ƒv‚Ì–Ê”
+    // æœ€å¾Œã®é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é¢æ•°
     GLuint groupcount = static_cast<GLuint>(_face.size()) * 3 - groupbegin;
     if (groupcount > 0)
     {
-      // ÅŒã‚Ì–ÊƒOƒ‹[ƒv‚Ì’¸“_ƒf[ƒ^‚ÌŠJn”Ô†‚Æ”C‚¨‚æ‚Ñ‚»‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ‹L˜^‚·‚é
+      // æœ€å¾Œã®é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é–‹å§‹ç•ªå·ã¨æ•°ï¼ŒãŠã‚ˆã³ãã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’è¨˜éŒ²ã™ã‚‹
       grp b(groupbegin, groupcount, mtl[mtlname]);
       _group.push_back(b);
     }
   }
   file.close();
 
-  // •K—v‚È–Ê”C’¸“_”CƒOƒ‹[ƒv”
+  // å¿…è¦ãªé¢æ•°ï¼Œé ‚ç‚¹æ•°ï¼Œã‚°ãƒ«ãƒ¼ãƒ—æ•°
   GLuint nf = static_cast<GLuint>(_face.size());
   nv = nf * 3;
   ng = static_cast<GLuint>(_group.size());
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   group = 0;
   amb = diff = spec = 0;
   shi = 0;
@@ -5596,7 +5596,7 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     return false;
   }
 
-  // ˆÊ’u‚Æ‘å‚«‚³‚ğ³‹K‰»‚·‚é‚½‚ß‚ÌŒW”
+  // ä½ç½®ã¨å¤§ãã•ã‚’æ­£è¦åŒ–ã™ã‚‹ãŸã‚ã®ä¿‚æ•°
   GLfloat scale, cx, cy, cz;
   if (normalize)
   {
@@ -5617,13 +5617,13 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     cx = cy = cz = 0.0f;
   }
 
-  // –Ê–@ü‚ÌZo
+  // é¢æ³•ç·šã®ç®—å‡º
   for (std::vector<fac>::iterator f = _face.begin(); f != _face.end(); ++f)
   {
-    // ’¸“_À•W”Ô†
+    // é ‚ç‚¹åº§æ¨™ç•ªå·
     GLuint v0 = f->v[0], v1 = f->v[1], v2 = f->v[2];
 
-    // v1 - v0, v2 - v0 ‚ğ‹‚ß‚é
+    // v1 - v0, v2 - v0 ã‚’æ±‚ã‚ã‚‹
     GLfloat dx1 = _pos[v1].pos.x - _pos[v0].pos.x;
     GLfloat dy1 = _pos[v1].pos.y - _pos[v0].pos.y;
     GLfloat dz1 = _pos[v1].pos.z - _pos[v0].pos.z;
@@ -5631,30 +5631,30 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     GLfloat dy2 = _pos[v2].pos.y - _pos[v0].pos.y;
     GLfloat dz2 = _pos[v2].pos.z - _pos[v0].pos.z;
 
-    // ŠOÏ‚É‚æ‚è–Ê–@ü‚ğ‹‚ß‚é
+    // å¤–ç©ã«ã‚ˆã‚Šé¢æ³•ç·šã‚’æ±‚ã‚ã‚‹
     f->norm.x = dy1 * dz2 - dz1 * dy2;
     f->norm.y = dz1 * dx2 - dx1 * dz2;
     f->norm.z = dx1 * dy2 - dy1 * dx2;
   }
 
-  // ’¸“_–@ü‚Ì’l‚ğ 0 ‚É‚µ‚Ä‚¨‚­
+  // é ‚ç‚¹æ³•ç·šã®å€¤ã‚’ 0 ã«ã—ã¦ãŠã
   for (std::vector<vtx>::iterator v = _pos.begin(); v != _pos.end(); ++v)
   {
     v->norm.x = v->norm.y = v->norm.z = 0.0f;
   }
 
-  // ’¸“_–@ü‚ÌZo
+  // é ‚ç‚¹æ³•ç·šã®ç®—å‡º
   for (std::vector<fac>::iterator f = _face.begin(); f != _face.end(); ++f)
   {
-    // ’¸“_À•W”Ô†
+    // é ‚ç‚¹åº§æ¨™ç•ªå·
     GLuint v0 = f->v[0], v1 = f->v[1], v2 = f->v[2];
 
-    // –Ê–@ü
+    // é¢æ³•ç·š
     GLfloat x = f->norm.x;
     GLfloat y = f->norm.y;
     GLfloat z = f->norm.z;
 
-    // –Ê–@ü‚ğ’¸“_–@ü‚ÉÏZ‚·‚é
+    // é¢æ³•ç·šã‚’é ‚ç‚¹æ³•ç·šã«ç©ç®—ã™ã‚‹
     _pos[v0].norm.x += x;
     _pos[v0].norm.y += y;
     _pos[v0].norm.z += z;
@@ -5668,13 +5668,13 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     _pos[v2].norm.z += z;
   }
 
-  // ’¸“_–@ü‚Ì³‹K‰»
+  // é ‚ç‚¹æ³•ç·šã®æ­£è¦åŒ–
   for (std::vector<vtx>::iterator v = _pos.begin(); v != _pos.end(); ++v)
   {
-    // ’¸“_–@ü‚Ì’·‚³
+    // é ‚ç‚¹æ³•ç·šã®é•·ã•
     GLfloat a = sqrt(v->norm.x * v->norm.x + v->norm.y * v->norm.y + v->norm.z * v->norm.z);
 
-    // ’¸“_–@ü‚ğ³‹K‰»‚·‚é
+    // é ‚ç‚¹æ³•ç·šã‚’æ­£è¦åŒ–ã™ã‚‹
     if (a != 0.0)
     {
       v->norm.x /= a;
@@ -5683,17 +5683,17 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     }
   }
 
-  // –Ê‚²‚Æ‚Ì’¸“_ƒf[ƒ^‚Ìì¬
+  // é¢ã”ã¨ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ä½œæˆ
   nv = 0;
   for (std::vector<fac>::iterator f = _face.begin(); f != _face.end(); ++f)
   {
-    // –Ê–@ü
+    // é¢æ³•ç·š
     GLfloat x = f->norm.x, y = f->norm.y, z = f->norm.z;
 
-    // –Ê–@ü‚Ì’·‚³
+    // é¢æ³•ç·šã®é•·ã•
     GLfloat a = sqrt(x * x + y * y + z * z);
 
-    // –Ê–@ü‚Ì³‹K‰»
+    // é¢æ³•ç·šã®æ­£è¦åŒ–
     if (a != 0.0)
     {
       x /= a;
@@ -5701,71 +5701,71 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
       z /= a;
     }
 
-    // O’¸“_‚Ì‚»‚ê‚¼‚ê‚É‚Â‚¢‚Ä
+    // ä¸‰é ‚ç‚¹ã®ãã‚Œãã‚Œã«ã¤ã„ã¦
     for (int i = 0; i < 3; ++i)
     {
-      // ’¸“_À•W”Ô†‚Æ’¸“_–@ü”Ô†
+      // é ‚ç‚¹åº§æ¨™ç•ªå·ã¨é ‚ç‚¹æ³•ç·šç•ªå·
       GLuint fv = f->v[i], fn = f->n[i];
 
-      // ’¸“_À•W‚ğ³‹K‰»‚µ‚Ä“o˜^
+      // é ‚ç‚¹åº§æ¨™ã‚’æ­£è¦åŒ–ã—ã¦ç™»éŒ²
       pos[nv][0] = (_pos[fv].pos.x - cx) * scale;
       pos[nv][1] = (_pos[fv].pos.y - cy) * scale;
       pos[nv][2] = (_pos[fv].pos.z - cz) * scale;
 
-      // –@ü”Ô†‚ª 0 ‚È‚ç
+      // æ³•ç·šç•ªå·ãŒ 0 ãªã‚‰
       if (fn == 0)
       {
-        // ’¸“_–@ü‚ğ•Û‘¶‚·‚é
+        // é ‚ç‚¹æ³•ç·šã‚’ä¿å­˜ã™ã‚‹
         norm[nv][0] = _pos[fv].norm.x;
         norm[nv][1] = _pos[fv].norm.y;
         norm[nv][2] = _pos[fv].norm.z;
       }
       else
       {
-        // “Ç‚İ‚Ü‚ê‚½’¸“_–@ü‚ğg‚¤
+        // èª­ã¿è¾¼ã¾ã‚ŒãŸé ‚ç‚¹æ³•ç·šã‚’ä½¿ã†
         --fn;
         norm[nv][0] = _norm[fn].x;
         norm[nv][1] = _norm[fn].y;
         norm[nv][2] = _norm[fn].z;
       }
 
-      // ’¸“_”‚ÌƒJƒEƒ“ƒg
+      // é ‚ç‚¹æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
       ++nv;
     }
   }
 
-  // –ÊƒOƒ‹[ƒvƒf[ƒ^‚Ìì¬
+  // é¢ã‚°ãƒ«ãƒ¼ãƒ—ãƒ‡ãƒ¼ã‚¿ã®ä½œæˆ
   ng = 0;
   for (std::vector<grp>::iterator g = _group.begin(); g != _group.end(); ++g)
   {
-    // –ÊƒOƒ‹[ƒv‚ÌÅ‰‚Ì’¸“_ˆÊ’u”Ô†
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®æœ€åˆã®é ‚ç‚¹ä½ç½®ç•ªå·
     group[ng][0] = g->b;
 
-    // –ÊƒOƒ‹[ƒv‚Ì’¸“_ƒf[ƒ^‚Ì”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æ•°
     group[ng][1] = g->c;
 
-    // –ÊƒOƒ‹[ƒv‚ÌŠÂ‹«Œõ‚É‘Î‚·‚é”½ËŒW”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®ç’°å¢ƒå…‰ã«å¯¾ã™ã‚‹åå°„ä¿‚æ•°
     amb[ng][0] = g->m->amb.r;
     amb[ng][1] = g->m->amb.g;
     amb[ng][2] = g->m->amb.b;
     amb[ng][3] = 1.0f;
 
-    // –ÊƒOƒ‹[ƒv‚ÌŠgU”½ËŒW”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®æ‹¡æ•£åå°„ä¿‚æ•°
     diff[ng][0] = g->m->diff.r;
     diff[ng][1] = g->m->diff.g;
     diff[ng][2] = g->m->diff.b;
     diff[ng][3] = g->m->dis;
 
-    // –ÊƒOƒ‹[ƒv‚Ì‹¾–Ê”½ËŒW”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®é¡é¢åå°„ä¿‚æ•°
     spec[ng][0] = g->m->spec.r;
     spec[ng][1] = g->m->spec.g;
     spec[ng][2] = g->m->spec.b;
     spec[ng][3] = 1.0f;
 
-    // –ÊƒOƒ‹[ƒv‚Ì‹P‚«ŒW”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®è¼ãä¿‚æ•°
     shi[ng] = g->m->shi;
 
-    // –ÊƒOƒ‹[ƒv‚Ì”
+    // é¢ã‚°ãƒ«ãƒ¼ãƒ—ã®æ•°
     ++ng;
   }
 
@@ -5773,47 +5773,47 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
 }
 
 /*
-** ƒVƒF[ƒ_[‚Ìƒ\[ƒXƒvƒƒOƒ‰ƒ€‚ğƒƒ‚ƒŠ‚É“Ç‚İ‚Ş
+** ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚½ãƒ¼ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ãƒ¡ãƒ¢ãƒªã«èª­ã¿è¾¼ã‚€
 */
 static bool readShaderSource(GLuint shader, const char *name)
 {
-  bool ret = true; // I—¹ƒXƒe[ƒ^ƒXitrue ‚È‚çƒGƒ‰[j
+  bool ret = true; // çµ‚äº†ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ï¼ˆtrue ãªã‚‰ã‚¨ãƒ©ãƒ¼ï¼‰
 
-  // ƒ\[ƒXƒtƒ@ƒCƒ‹‚ğŠJ‚­
+  // ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   std::ifstream file(name, std::ios::binary);
 
   if (file.fail())
   {
-    // ŠJ‚¯‚È‚©‚Á‚½
+    // é–‹ã‘ãªã‹ã£ãŸ
     std::cerr << "Error: Can't open source file: " << name << std::endl;
   }
   else
   {
-    // ƒtƒ@ƒCƒ‹‚Ì––”ö‚ÉˆÚ“®‚µŒ»İˆÊ’uiƒtƒ@ƒCƒ‹ƒTƒCƒYj‚ğ“¾‚é
+    // ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ«å°¾ã«ç§»å‹•ã—ç¾åœ¨ä½ç½®ï¼ˆï¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºï¼‰ã‚’å¾—ã‚‹
     file.seekg(0L, std::ios::end);
     GLsizei length = static_cast<GLsizei>(file.tellg());
 
-    // ƒtƒ@ƒCƒ‹ƒTƒCƒY‚Ìƒƒ‚ƒŠ‚ğŠm•Û
+    // ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã®ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿
     char *buffer = new GLchar[length];
 
-    // ƒtƒ@ƒCƒ‹‚ğæ“ª‚©‚ç“Ç‚İ‚Ş
+    // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…ˆé ­ã‹ã‚‰èª­ã¿è¾¼ã‚€
     file.seekg(0L, std::ios::beg);
     file.read(buffer, length);
 
     if (file.bad())
     {
-      // ‚¤‚Ü‚­“Ç‚İ‚ß‚È‚©‚Á‚½
+      // ã†ã¾ãèª­ã¿è¾¼ã‚ãªã‹ã£ãŸ
       std::cerr << "Error: Could not read souce file: " << name << std::endl;
     }
     else {
-      // ƒVƒF[ƒ_‚Ìƒ\[ƒXƒvƒƒOƒ‰ƒ€‚ÌƒVƒF[ƒ_ƒIƒuƒWƒFƒNƒg‚Ö‚Ì“Ç‚İ‚İ
+      // ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚·ã‚§ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®èª­ã¿è¾¼ã¿
       const GLchar *source[] = { buffer };
       glShaderSource(shader, 1, source, &length);
       ret = false;
     }
     file.close();
 
-    // “Ç‚İ‚İ‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğŠJ•ú‚·‚é
+    // èª­ã¿è¾¼ã¿ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ã™ã‚‹
     delete[] buffer;
   }
 
@@ -5821,22 +5821,22 @@ static bool readShaderSource(GLuint shader, const char *name)
 }
 
 /*
-** ƒVƒF[ƒ_ƒIƒuƒWƒFƒNƒg‚ÌƒRƒ“ƒpƒCƒ‹Œ‹‰Ê‚ğ•\¦‚·‚é
+** ã‚·ã‚§ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«çµæœã‚’è¡¨ç¤ºã™ã‚‹
 */
 static GLboolean printShaderInfoLog(GLuint shader, const char *str)
 {
-  // ƒRƒ“ƒpƒCƒ‹Œ‹‰Ê‚ğæ“¾‚·‚é
+  // ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«çµæœã‚’å–å¾—ã™ã‚‹
   GLint status;
   glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
   if (status == GL_FALSE) std::cerr << "Compile Error in " << str << std::endl;
 
-  // ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚ÌƒƒO‚Ì’·‚³‚ğæ“¾‚·‚é
+  // ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ™‚ã®ãƒ­ã‚°ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
   GLsizei bufSize;
   glGetShaderiv(shader, GL_INFO_LOG_LENGTH , &bufSize);
 
   if (bufSize > 1)
   {
-    // ƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹‚ÌƒƒO‚Ì“à—e‚ğæ“¾‚·‚é
+    // ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ™‚ã®ãƒ­ã‚°ã®å†…å®¹ã‚’å–å¾—ã™ã‚‹
     GLchar *infoLog = new GLchar[bufSize];
     GLsizei length;
     glGetShaderInfoLog(shader, bufSize, &length, infoLog);
@@ -5848,22 +5848,22 @@ static GLboolean printShaderInfoLog(GLuint shader, const char *str)
 }
 
 /*
-** ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒŠƒ“ƒNŒ‹‰Ê‚ğ•\¦‚·‚é
+** ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªãƒ³ã‚¯çµæœã‚’è¡¨ç¤ºã™ã‚‹
 */
 static GLboolean printProgramInfoLog(GLuint program)
 {
-  // ƒŠƒ“ƒNŒ‹‰Ê‚ğæ“¾‚·‚é
+  // ãƒªãƒ³ã‚¯çµæœã‚’å–å¾—ã™ã‚‹
   GLint status;
   glGetProgramiv(program, GL_LINK_STATUS, &status);
   if (status == GL_FALSE) std::cerr << "Link Error." << std::endl;
 
-  // ƒVƒF[ƒ_‚ÌƒŠƒ“ƒN‚ÌƒƒO‚Ì’·‚³‚ğæ“¾‚·‚é
+  // ã‚·ã‚§ãƒ¼ãƒ€ã®ãƒªãƒ³ã‚¯æ™‚ã®ãƒ­ã‚°ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
   GLsizei bufSize;
   glGetProgramiv(program, GL_INFO_LOG_LENGTH , &bufSize);
 
   if (bufSize > 1)
   {
-    // ƒVƒF[ƒ_‚ÌƒŠƒ“ƒN‚ÌƒƒO‚Ì“à—e‚ğæ“¾‚·‚é
+    // ã‚·ã‚§ãƒ¼ãƒ€ã®ãƒªãƒ³ã‚¯æ™‚ã®ãƒ­ã‚°ã®å†…å®¹ã‚’å–å¾—ã™ã‚‹
     GLchar *infoLog = new GLchar[bufSize];
     GLsizei length;
     glGetProgramInfoLog(program, bufSize, &length, infoLog);
@@ -5875,28 +5875,28 @@ static GLboolean printProgramInfoLog(GLuint program)
 }
 
 /*
-** ƒVƒF[ƒ_[ƒ\[ƒXƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+** ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 */
 GLuint gg::ggLoadShader(
-  const char *vert,       // ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_‚Ìƒ\[ƒXƒtƒ@ƒCƒ‹–¼
-  const char *frag,       // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚Ìƒ\[ƒXƒtƒ@ƒCƒ‹–¼
-  const char *geom,       // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ìƒ\[ƒXƒtƒ@ƒCƒ‹–¼
-  GLenum input,           // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ì“ü—ÍƒvƒŠƒ~ƒeƒBƒu
-  GLenum output,          // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ìo—ÍƒvƒŠƒ~ƒeƒBƒu
-  GLint vertices,         // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ìo—Í’¸“_”
-  GLint nvarying,         // Transform Feedback ‚·‚é varying •Ï”‚Ì”
-  const char **varyings   // Transform Feedback ‚·‚é varying •Ï”‚ÌƒŠƒXƒg
+  const char *vert,       // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+  const char *frag,       // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+  const char *geom,       // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«å
+  GLenum input,           // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®å…¥åŠ›ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–
+  GLenum output,          // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®å‡ºåŠ›ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–
+  GLint vertices,         // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®å‡ºåŠ›é ‚ç‚¹æ•°
+  GLint nvarying,         // Transform Feedback ã™ã‚‹ varying å¤‰æ•°ã®æ•°
+  const char **varyings   // Transform Feedback ã™ã‚‹ varying å¤‰æ•°ã®ãƒªã‚¹ãƒˆ
   )
 {
-  // ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ìì¬
+  // ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ä½œæˆ
   GLuint program = glCreateProgram();
 
   if (program > 0)
   {
-    // ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_‚Ìì¬
+    // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ä½œæˆ
     GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
 
-    // ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_‚Ìƒ\[ƒXƒvƒƒOƒ‰ƒ€‚Ì“Ç‚İ‚İ
+    // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª­ã¿è¾¼ã¿
     if (readShaderSource(vertShader, vert))
     {
       glDeleteShader(vertShader);
@@ -5904,7 +5904,7 @@ GLuint gg::ggLoadShader(
       return 0;
     }
 
-    // ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹
+    // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
     glCompileShader(vertShader);
     if (printShaderInfoLog(vertShader, vert) == GL_FALSE)
     {
@@ -5913,16 +5913,16 @@ GLuint gg::ggLoadShader(
       return 0;
     }
 
-    // ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ö‚Ì‘g‚İ‚İ
+    // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¸ã®çµ„ã¿è¾¼ã¿
     glAttachShader(program, vertShader);
     glDeleteShader(vertShader);
 
     if (frag)
     {
-      // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚Ìì¬
+      // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®ä½œæˆ
       GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-      // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚Ìƒ\[ƒXƒvƒƒOƒ‰ƒ€‚Ì“Ç‚İ‚İ
+      // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª­ã¿è¾¼ã¿
       if (readShaderSource(fragShader, frag))
       {
         glDeleteShader(fragShader);
@@ -5930,7 +5930,7 @@ GLuint gg::ggLoadShader(
         return 0;
       }
 
-      // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹
+      // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
       glCompileShader(fragShader);
       if (printShaderInfoLog(fragShader, frag) == GL_FALSE)
       {
@@ -5939,17 +5939,17 @@ GLuint gg::ggLoadShader(
         return 0;
       }
 
-      // ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ö‚Ì‘g‚İ‚İ
+      // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¸ã®çµ„ã¿è¾¼ã¿
       glAttachShader(program, fragShader);
       glDeleteShader(fragShader);
     }
 
     if (geom)
     {
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ìì¬
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®ä½œæˆ
       GLuint geomShader = glCreateShader(GL_GEOMETRY_SHADER);
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚Ìƒ\[ƒXƒvƒƒOƒ‰ƒ€‚Ì“Ç‚İ‚İ
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®ã‚½ãƒ¼ã‚¹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®èª­ã¿è¾¼ã¿
       if (readShaderSource(geomShader, geom))
       {
         glDeleteShader(geomShader);
@@ -5957,7 +5957,7 @@ GLuint gg::ggLoadShader(
         return 0;
       }
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚ÌƒRƒ“ƒpƒCƒ‹
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
       glCompileShader(geomShader);
       if (printShaderInfoLog(geomShader, geom) == GL_FALSE)
       {
@@ -5966,24 +5966,24 @@ GLuint gg::ggLoadShader(
         return 0;
       }
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚ÌƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ö‚Ì‘g‚İ‚İ
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¸ã®çµ„ã¿è¾¼ã¿
       glAttachShader(program, geomShader);
       glDeleteShader(geomShader);
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚É“ü—Í‚·‚éŠî–{}Œ`‚Ìw’è
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã«å…¥åŠ›ã™ã‚‹åŸºæœ¬å›³å½¢ã®æŒ‡å®š
       glProgramParameteri(program, GL_GEOMETRY_INPUT_TYPE_EXT, input);
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚©‚ço—Í‚·‚éŠî–{}Œ`‚Ìw’è
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ã‹ã‚‰å‡ºåŠ›ã™ã‚‹åŸºæœ¬å›³å½¢ã®æŒ‡å®š
       glProgramParameteri(program, GL_GEOMETRY_OUTPUT_TYPE_EXT, output);
 
-      // ƒWƒIƒƒgƒŠƒVƒF[ƒ_‚ªo—Í‚·‚é’¸“_”‚Ìİ’è
+      // ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ãŒå‡ºåŠ›ã™ã‚‹é ‚ç‚¹æ•°ã®è¨­å®š
       if (vertices > 0) glProgramParameteri(program, GL_GEOMETRY_VERTICES_OUT_EXT, vertices);
     }
 
-    // feedback ‚Ég‚¤ varying •Ï”‚ğw’è‚·‚é
+    // feedback ã«ä½¿ã† varying å¤‰æ•°ã‚’æŒ‡å®šã™ã‚‹
     if (nvarying > 0) glTransformFeedbackVaryings(program, nvarying, varyings, GL_SEPARATE_ATTRIBS);
 
-    // ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚ÌƒŠƒ“ƒN
+    // ã‚·ã‚§ãƒ¼ãƒ€ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒªãƒ³ã‚¯
     glLinkProgram(program);
     if (printProgramInfoLog(program) == GL_FALSE)
     {
@@ -5996,7 +5996,7 @@ GLuint gg::ggLoadShader(
 }
 
 /*
-** •ÏŠ·s—ñFs—ñ‚ÆƒxƒNƒgƒ‹‚ÌÏ c © a ~ b
+** å¤‰æ›è¡Œåˆ—ï¼šè¡Œåˆ—ã¨ãƒ™ã‚¯ãƒˆãƒ«ã®ç© c â† a Ã— b
 */
 void gg::GgMatrix::projection(GLfloat *c, const GLfloat *a, const GLfloat *b) const
 {
@@ -6007,7 +6007,7 @@ void gg::GgMatrix::projection(GLfloat *c, const GLfloat *a, const GLfloat *b) co
 }
 
 /*
-** •ÏŠ·s—ñFs—ñ‚Æs—ñ‚ÌÏ c © a ~ b
+** å¤‰æ›è¡Œåˆ—ï¼šè¡Œåˆ—ã¨è¡Œåˆ—ã®ç© c â† a Ã— b
 */
 void gg::GgMatrix::multiply(GLfloat *c, const GLfloat *a, const GLfloat *b) const
 {
@@ -6020,7 +6020,7 @@ void gg::GgMatrix::multiply(GLfloat *c, const GLfloat *a, const GLfloat *b) cons
 }
 
 /*
-** •ÏŠ·s—ñF’PˆÊs—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šå˜ä½è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadIdentity(void)
 {
@@ -6033,7 +6033,7 @@ gg::GgMatrix &gg::GgMatrix::loadIdentity(void)
 }
 
 /*
-** •ÏŠ·s—ñF•½sˆÚ“®•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šå¹³è¡Œç§»å‹•å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadTranslate(GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
@@ -6049,7 +6049,7 @@ gg::GgMatrix &gg::GgMatrix::loadTranslate(GLfloat x, GLfloat y, GLfloat z, GLflo
 }
 
 /*
-** •ÏŠ·s—ñFŠg‘åk¬•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šæ‹¡å¤§ç¸®å°å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadScale(GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
@@ -6065,7 +6065,7 @@ gg::GgMatrix &gg::GgMatrix::loadScale(GLfloat x, GLfloat y, GLfloat z, GLfloat w
 }
 
 /*
-** •ÏŠ·s—ñFx ²’†S‚Ì‰ñ“]•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šx è»¸ä¸­å¿ƒã®å›è»¢å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadRotateX(GLfloat a)
 {
@@ -6081,7 +6081,7 @@ gg::GgMatrix &gg::GgMatrix::loadRotateX(GLfloat a)
 }
 
 /*
-** •ÏŠ·s—ñFy ²’†S‚Ì‰ñ“]•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šy è»¸ä¸­å¿ƒã®å›è»¢å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadRotateY(GLfloat a)
 {
@@ -6097,7 +6097,7 @@ gg::GgMatrix &gg::GgMatrix::loadRotateY(GLfloat a)
 }
 
 /*
-** •ÏŠ·s—ñFz ²’†S‚Ì‰ñ“]•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šz è»¸ä¸­å¿ƒã®å›è»¢å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadRotateZ(GLfloat a)
 {
@@ -6113,7 +6113,7 @@ gg::GgMatrix &gg::GgMatrix::loadRotateZ(GLfloat a)
 }
 
 /*
-** •ÏŠ·s—ñF”CˆÓ²’†S‚Ì‰ñ“]•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šä»»æ„è»¸ä¸­å¿ƒã®å›è»¢å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadRotate(GLfloat x, GLfloat y, GLfloat z, GLfloat a)
 {
@@ -6152,7 +6152,7 @@ gg::GgMatrix &gg::GgMatrix::loadRotate(GLfloat x, GLfloat y, GLfloat z, GLfloat 
 }
 
 /*
-** •ÏŠ·s—ñF“]’us—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šè»¢ç½®è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadTranspose(const GgMatrix &m)
 {
@@ -6177,14 +6177,14 @@ gg::GgMatrix &gg::GgMatrix::loadTranspose(const GgMatrix &m)
 }
 
 /*
-** •ÏŠ·s—ñF‹ts—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šé€†è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadInvert(const GgMatrix &m)
 {
   GLfloat lu[20], *plu[4];
   const GLfloat *marray = m.array;
 
-  // j s‚Ì—v‘f‚Ì’l‚Ìâ‘Î’l‚ÌÅ‘å’l‚ğ plu[j][4] ‚É‹‚ß‚é
+  // j è¡Œã®è¦ç´ ã®å€¤ã®çµ¶å¯¾å€¤ã®æœ€å¤§å€¤ã‚’ plu[j][4] ã«æ±‚ã‚ã‚‹
   for (int j = 0; j < 4; ++j)
   {
     GLfloat max = fabs(*(plu[j] = lu + 5 * j) = *(marray++));
@@ -6198,7 +6198,7 @@ gg::GgMatrix &gg::GgMatrix::loadInvert(const GgMatrix &m)
     plu[j][4] = 1.0f / max;
   }
 
-  // ƒsƒ{ƒbƒg‚ğl—¶‚µ‚½ LU •ª‰ğ
+  // ãƒ”ãƒœãƒƒãƒˆã‚’è€ƒæ…®ã—ãŸ LU åˆ†è§£
   for (int j = 0; j < 4; ++j)
   {
     GLfloat max = fabs(plu[j][j] * plu[j][4]);
@@ -6230,15 +6230,15 @@ gg::GgMatrix &gg::GgMatrix::loadInvert(const GgMatrix &m)
     }
   }
 
-  // LU •ª‰ğ‚©‚ç‹ts—ñ‚ğ‹‚ß‚é
+  // LU åˆ†è§£ã‹ã‚‰é€†è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
   for (int k = 0; k < 4; ++k)
   {
-    // array ‚É’PˆÊs—ñ‚ğİ’è‚·‚é
+    // array ã«å˜ä½è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
     for (int i = 0; i < 4; ++i)
     {
       array[i * 4 + k] = (plu[i] == lu + k * 5) ? 1.0f : 0.0f;
     }
-    // lu ‚©‚ç‹ts—ñ‚ğ‹‚ß‚é
+    // lu ã‹ã‚‰é€†è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
     for (int i = 0; i < 4; ++i)
     {
       for (int j = i; ++j < 4;)
@@ -6260,7 +6260,7 @@ gg::GgMatrix &gg::GgMatrix::loadInvert(const GgMatrix &m)
 }
 
 /*
-** •ÏŠ·s—ñF–@ü•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šæ³•ç·šå¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadNormal(const GgMatrix &m)
 {
@@ -6280,13 +6280,13 @@ gg::GgMatrix &gg::GgMatrix::loadNormal(const GgMatrix &m)
 }
 
 /*
-** •ÏŠ·s—ñFƒrƒ…[•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadLookat(GLfloat ex, GLfloat ey, GLfloat ez, GLfloat tx, GLfloat ty, GLfloat tz, GLfloat ux, GLfloat uy, GLfloat uz)
 {
   GLfloat l;
 
-  // z ² = e - t
+  // z è»¸ = e - t
   tx = ex - tx;
   ty = ey - ty;
   tz = ez - tz;
@@ -6296,7 +6296,7 @@ gg::GgMatrix &gg::GgMatrix::loadLookat(GLfloat ex, GLfloat ey, GLfloat ez, GLflo
   array[ 6] = ty / l;
   array[10] = tz / l;
 
-  // x ² = u x z ²
+  // x è»¸ = u x z è»¸
   tx = uy * array[10] - uz * array[ 6];
   ty = uz * array[ 2] - ux * array[10];
   tz = ux * array[ 6] - uy * array[ 2];
@@ -6306,17 +6306,17 @@ gg::GgMatrix &gg::GgMatrix::loadLookat(GLfloat ex, GLfloat ey, GLfloat ez, GLflo
   array[ 4] = ty / l;
   array[ 8] = tz / l;
 
-  // y ² = z ² x x ²
+  // y è»¸ = z è»¸ x x è»¸
   array[ 1] = array[ 6] * array[ 8] - array[10] * array[ 4];
   array[ 5] = array[10] * array[ 0] - array[ 2] * array[ 8];
   array[ 9] = array[ 2] * array[ 4] - array[ 6] * array[ 0];
 
-  // •½sˆÚ“®
+  // å¹³è¡Œç§»å‹•
   array[12] = -(ex * array[ 0] + ey * array[ 4] + ez * array[ 8]);
   array[13] = -(ex * array[ 1] + ey * array[ 5] + ez * array[ 9]);
   array[14] = -(ex * array[ 2] + ey * array[ 6] + ez * array[10]);
 
-  // c‚è
+  // æ®‹ã‚Š
   array[ 3] = array[ 7] = array[11] = 0.0f;
   array[15] = 1.0f;
 
@@ -6324,7 +6324,7 @@ gg::GgMatrix &gg::GgMatrix::loadLookat(GLfloat ex, GLfloat ey, GLfloat ez, GLflo
 }
 
 /*
-** •ÏŠ·s—ñF•½s“Š‰e•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šå¹³è¡ŒæŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadOrthogonal(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar)
 {
@@ -6349,7 +6349,7 @@ gg::GgMatrix &gg::GgMatrix::loadOrthogonal(GLfloat left, GLfloat right, GLfloat 
 }
 
 /*
-** •ÏŠ·s—ñF“§‹“Š‰e•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šé€è¦–æŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadFrustum(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar)
 {
@@ -6374,7 +6374,7 @@ gg::GgMatrix &gg::GgMatrix::loadFrustum(GLfloat left, GLfloat right, GLfloat bot
 }
 
 /*
-** •ÏŠ·s—ñF‰æŠp‚©‚ç“§‹“Š‰e•ÏŠ·s—ñ‚ğİ’è‚·‚é
+** å¤‰æ›è¡Œåˆ—ï¼šç”»è§’ã‹ã‚‰é€è¦–æŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
 */
 gg::GgMatrix &gg::GgMatrix::loadPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar)
 {
@@ -6396,7 +6396,7 @@ gg::GgMatrix &gg::GgMatrix::loadPerspective(GLfloat fovy, GLfloat aspect, GLfloa
 }
 
 /*
-** •ÏŠ·s—ñFƒrƒ…[•ÏŠ·s—ñ‚ğæ‚¶‚éi‹“_‚ÌˆÚ“®j
+** å¤‰æ›è¡Œåˆ—ï¼šãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—ã‚’ä¹—ã˜ã‚‹ï¼ˆè¦–ç‚¹ã®ç§»å‹•ï¼‰
 */
 gg::GgMatrix gg::GgMatrix::lookat(GLfloat ex, GLfloat ey, GLfloat ez, GLfloat tx, GLfloat ty, GLfloat tz, GLfloat ux, GLfloat uy, GLfloat uz) const
 {
@@ -6405,7 +6405,7 @@ gg::GgMatrix gg::GgMatrix::lookat(GLfloat ex, GLfloat ey, GLfloat ez, GLfloat tx
 }
 
 /*
-** •ÏŠ·s—ñF•½s“Š‰e•ÏŠ·s—ñ‚ğæ‚¶‚é
+** å¤‰æ›è¡Œåˆ—ï¼šå¹³è¡ŒæŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’ä¹—ã˜ã‚‹
 */
 gg::GgMatrix gg::GgMatrix::orthogonal(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar) const
 {
@@ -6414,7 +6414,7 @@ gg::GgMatrix gg::GgMatrix::orthogonal(GLfloat left, GLfloat right, GLfloat botto
 }
 
 /*
-** •ÏŠ·s—ñF“§‹“Š‰e•ÏŠ·s—ñ‚ğæ‚¶‚é
+** å¤‰æ›è¡Œåˆ—ï¼šé€è¦–æŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’ä¹—ã˜ã‚‹
 */
 gg::GgMatrix gg::GgMatrix::frustum(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar) const
 {
@@ -6423,7 +6423,7 @@ gg::GgMatrix gg::GgMatrix::frustum(GLfloat left, GLfloat right, GLfloat bottom, 
 }
 
 /*
-** •ÏŠ·s—ñF‰æŠp‚©‚ç‹‚ß‚½“§‹“Š‰e•ÏŠ·s—ñ‚ğæ‚¶‚é
+** å¤‰æ›è¡Œåˆ—ï¼šç”»è§’ã‹ã‚‰æ±‚ã‚ãŸé€è¦–æŠ•å½±å¤‰æ›è¡Œåˆ—ã‚’ä¹—ã˜ã‚‹
 */
 gg::GgMatrix gg::GgMatrix::perspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar) const
 {
@@ -6432,7 +6432,7 @@ gg::GgMatrix gg::GgMatrix::perspective(GLfloat fovy, GLfloat aspect, GLfloat zNe
 }
 
 /*
-** lŒ³”FlŒ³” p, q ‚Ì˜a‚ğ r ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° p, q ã®å’Œã‚’ r ã«æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::add(GLfloat *r, const GLfloat *p, const GLfloat *q) const
 {
@@ -6443,7 +6443,7 @@ void gg::GgQuaternion::add(GLfloat *r, const GLfloat *p, const GLfloat *q) const
 }
 
 /*
-** lŒ³”FlŒ³” p, q ‚Ì·‚ğ r ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° p, q ã®å·®ã‚’ r ã«æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::subtract(GLfloat *r, const GLfloat *p, const GLfloat *q) const
 {
@@ -6454,7 +6454,7 @@ void gg::GgQuaternion::subtract(GLfloat *r, const GLfloat *p, const GLfloat *q) 
 }
 
 /*
-** lŒ³”FlŒ³” p, q ‚ÌÏ‚ğ r ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° p, q ã®ç©ã‚’ r ã«æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::multiply(GLfloat *r, const GLfloat *p, const GLfloat *q) const
 {
@@ -6465,7 +6465,7 @@ void gg::GgQuaternion::multiply(GLfloat *r, const GLfloat *p, const GLfloat *q) 
 }
 
 /*
-** lŒ³”FlŒ³” q ‚ª•\‚·•ÏŠ·s—ñ‚ğ m ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° q ãŒè¡¨ã™å¤‰æ›è¡Œåˆ—ã‚’ m ã«æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::toMatrix(GLfloat *m, const GLfloat *q) const
 {
@@ -6493,7 +6493,7 @@ void gg::GgQuaternion::toMatrix(GLfloat *m, const GLfloat *q) const
 }
 
 /*
-** lŒ³”F‰ñ“]•ÏŠ·s—ñ m ‚ª•\‚·lŒ³”‚ğ q ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå›è»¢å¤‰æ›è¡Œåˆ— m ãŒè¡¨ã™å››å…ƒæ•°ã‚’ q ã«æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::toQuaternion(GLfloat *q, const GLfloat *m) const
 {
@@ -6509,7 +6509,7 @@ void gg::GgQuaternion::toQuaternion(GLfloat *q, const GLfloat *m) const
 }
 
 /*
-** lŒ³”F‹…–ÊüŒ`•âŠÔ p ‚É q ‚Æ r ‚ğ t ‚Å•âŠÔ‚µ‚½lŒ³”‚ğ‹‚ß‚é
+** å››å…ƒæ•°ï¼šçƒé¢ç·šå½¢è£œé–“ p ã« q ã¨ r ã‚’ t ã§è£œé–“ã—ãŸå››å…ƒæ•°ã‚’æ±‚ã‚ã‚‹
 */
 void gg::GgQuaternion::slerp(GLfloat *p, const GLfloat *q, const GLfloat *r, GLfloat t) const
 {
@@ -6542,7 +6542,7 @@ void gg::GgQuaternion::slerp(GLfloat *p, const GLfloat *q, const GLfloat *r, GLf
 }
 
 /*
-** lŒ³”F(x, y, z) ‚ğ²‚Æ‚µŠp“x a ‰ñ“]‚·‚élŒ³”‚ğ‹‚ß‚é
+** å››å…ƒæ•°ï¼š(x, y, z) ã‚’è»¸ã¨ã—è§’åº¦ a å›è»¢ã™ã‚‹å››å…ƒæ•°ã‚’æ±‚ã‚ã‚‹
 */
 gg::GgQuaternion &gg::GgQuaternion::loadRotate(GLfloat x, GLfloat y, GLfloat z, GLfloat a)
 {
@@ -6566,7 +6566,7 @@ gg::GgQuaternion &gg::GgQuaternion::loadRotate(GLfloat x, GLfloat y, GLfloat z, 
 }
 
 /*
-** lŒ³”FƒIƒCƒ‰[Šp (h, p, r) ‚É‚à‚Æ‚Ã‚¢‚ÄlŒ³”‚ğ‹‚ß‚é
+** å››å…ƒæ•°ï¼šã‚ªã‚¤ãƒ©ãƒ¼è§’ (h, p, r) ã«ã‚‚ã¨ã¥ã„ã¦å››å…ƒæ•°ã‚’æ±‚ã‚ã‚‹
 */
 gg::GgQuaternion &gg::GgQuaternion::loadEuler(GLfloat h, GLfloat p, GLfloat r)
 {
@@ -6574,7 +6574,7 @@ gg::GgQuaternion &gg::GgQuaternion::loadEuler(GLfloat h, GLfloat p, GLfloat r)
 }
 
 /*
-** lŒ³”Fƒmƒ‹ƒ€
+** å››å…ƒæ•°ï¼šãƒãƒ«ãƒ 
 */
 GLfloat gg::GgQuaternion::norm(void) const
 {
@@ -6582,7 +6582,7 @@ GLfloat gg::GgQuaternion::norm(void) const
 }
 
 /*
-** lŒ³”FlŒ³” q ‚Ì‹¤–ğ‚ğ r ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° q ã®å…±å½¹ã‚’ r ã«æ±‚ã‚ã‚‹
 */
 gg::GgQuaternion gg::GgQuaternion::conjugate(void) const
 {
@@ -6592,7 +6592,7 @@ gg::GgQuaternion gg::GgQuaternion::conjugate(void) const
 }
 
 /*
-** lŒ³”FlŒ³” q ‚Ì‹t‚ğ r ‚É‹‚ß‚é
+** å››å…ƒæ•°ï¼šå››å…ƒæ•° q ã®é€†ã‚’ r ã«æ±‚ã‚ã‚‹
 */
 gg::GgQuaternion gg::GgQuaternion::invert(void) const
 {
@@ -6611,7 +6611,7 @@ gg::GgQuaternion gg::GgQuaternion::invert(void) const
 }
 
 /*
-** lŒ³”F³‹K‰»
+** å››å…ƒæ•°ï¼šæ­£è¦åŒ–
 */
 gg::GgQuaternion gg::GgQuaternion::normalize(void) const
 {
@@ -6630,54 +6630,54 @@ gg::GgQuaternion gg::GgQuaternion::normalize(void) const
 }
 
 /*
-** ŠÈˆÕƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—FƒRƒ“ƒXƒgƒ‰ƒNƒ^
+** ç°¡æ˜“ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 */
 gg::GgTrackball::GgTrackball(void)
 {
-  // ƒhƒ‰ƒbƒO’†‚Å‚Í‚È‚¢
+  // ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã§ã¯ãªã„
   drag = false;
 
-  // ’PˆÊƒNƒH[ƒ^[ƒjƒIƒ“
+  // å˜ä½ã‚¯ã‚©ãƒ¼ã‚¿ãƒ¼ãƒ‹ã‚ªãƒ³
   cq.loadIdentity();
 
-  // ‰ñ“]s—ñ‚Ì‰Šú‰»
+  // å›è»¢è¡Œåˆ—ã®åˆæœŸåŒ–
   cq.getMatrix(rt);
 }
 
 /*
-** ŠÈˆÕƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—Fƒgƒ‰ƒbƒNƒ{[ƒ‹‚·‚é—Ìˆæ‚Ìİ’è
+** ç°¡æ˜“ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ï¼šãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«ã™ã‚‹é ˜åŸŸã®è¨­å®š
 **
-**    Reshape ƒR[ƒ‹ƒoƒbƒN (resize) ‚Ì’†‚ÅÀs‚·‚é
-**    (w, h): ƒEƒBƒ“ƒhƒEƒTƒCƒY
+**    Reshape ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ (resize) ã®ä¸­ã§å®Ÿè¡Œã™ã‚‹
+**    (w, h): ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º
 */
 void gg::GgTrackball::region(int w, int h)
 {
-  // ƒ}ƒEƒXƒ|ƒCƒ“ƒ^ˆÊ’u‚ÌƒEƒBƒ“ƒhƒE“à‚Ì‘Š‘Î“IˆÊ’u‚Ö‚ÌŠ·Z—p
+  // ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ä½ç½®ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã®ç›¸å¯¾çš„ä½ç½®ã¸ã®æ›ç®—ç”¨
   sx = 1.0f / static_cast<float>(w);
   sy = 1.0f / static_cast<float>(h);
 }
 
 /*
-** ŠÈˆÕƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—Fƒhƒ‰ƒbƒOŠJn‚Ìˆ—
+** ç°¡æ˜“ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ï¼šãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹æ™‚ã®å‡¦ç†
 **
-**    ƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚ÉÀs‚·‚é
-**    (x, y): Œ»İ‚Ìƒ}ƒEƒXˆÊ’u
+**    ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã«å®Ÿè¡Œã™ã‚‹
+**    (x, y): ç¾åœ¨ã®ãƒã‚¦ã‚¹ä½ç½®
 */
 void gg::GgTrackball::start(int x, int y)
 {
-  // ƒhƒ‰ƒbƒOŠJn
+  // ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹
   drag = true;
 
-  // ƒhƒ‰ƒbƒOŠJn“_‚ğ‹L˜^‚·‚é
+  // ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹ç‚¹ã‚’è¨˜éŒ²ã™ã‚‹
   cx = x;
   cy = y;
 }
 
 /*
-** ŠÈˆÕƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—Fƒhƒ‰ƒbƒO’†‚Ìˆ—
+** ç°¡æ˜“ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ï¼šãƒ‰ãƒ©ãƒƒã‚°ä¸­ã®å‡¦ç†
 **
-**    ƒ}ƒEƒX‚Ìƒhƒ‰ƒbƒO’†‚ÉÀs‚·‚é
-**    (x, y): Œ»İ‚Ìƒ}ƒEƒXˆÊ’u
+**    ãƒã‚¦ã‚¹ã®ãƒ‰ãƒ©ãƒƒã‚°ä¸­ã«å®Ÿè¡Œã™ã‚‹
+**    (x, y): ç¾åœ¨ã®ãƒã‚¦ã‚¹ä½ç½®
 */
 void gg::GgTrackball::motion(int x, int y)
 {
@@ -6685,75 +6685,75 @@ void gg::GgTrackball::motion(int x, int y)
   {
     float dx, dy, a;
 
-    // ƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚ÌˆÊ’u‚Ìƒhƒ‰ƒbƒOŠJnˆÊ’u‚©‚ç‚Ì•ÏˆÊ
+    // ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ä½ç½®ã®ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹ä½ç½®ã‹ã‚‰ã®å¤‰ä½
     dx = (x - cx) * sx;
     dy = (y - cy) * sy;
 
-    // ƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚ÌˆÊ’u‚Ìƒhƒ‰ƒbƒOŠJnˆÊ’u‚©‚ç‚Ì‹——£
+    // ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ä½ç½®ã®ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹ä½ç½®ã‹ã‚‰ã®è·é›¢
     a = sqrt(dx * dx + dy * dy);
 
     if (a != 0.0)
     {
-      // Œ»İ‚Ì‰ñ“]‚ÌlŒ³”‚Éì‚Á‚½lŒ³”‚ğŠ|‚¯‚Ä‡¬‚·‚é
+      // ç¾åœ¨ã®å›è»¢ã®å››å…ƒæ•°ã«ä½œã£ãŸå››å…ƒæ•°ã‚’æ›ã‘ã¦åˆæˆã™ã‚‹
       tq = ggRotateQuaternion(dy, dx, 0.0f, a * 6.283185f) * cq;
 
-      // ‡¬‚µ‚½lŒ³”‚©‚ç‰ñ“]‚Ì•ÏŠ·s—ñ‚ğ‹‚ß‚é
+      // åˆæˆã—ãŸå››å…ƒæ•°ã‹ã‚‰å›è»¢ã®å¤‰æ›è¡Œåˆ—ã‚’æ±‚ã‚ã‚‹
       tq.getMatrix(rt);
     }
   }
 }
 
 /*
-** ŠÈˆÕƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—F’â~‚Ìˆ—
+** ç°¡æ˜“ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ï¼šåœæ­¢æ™‚ã®å‡¦ç†
 **
-**    ƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚Æ‚«‚ÉÀs‚·‚é
-**    (x, y): Œ»İ‚Ìƒ}ƒEƒXˆÊ’u
+**    ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã¨ãã«å®Ÿè¡Œã™ã‚‹
+**    (x, y): ç¾åœ¨ã®ãƒã‚¦ã‚¹ä½ç½®
 */
 void gg::GgTrackball::stop(int x, int y)
 {
-  // ƒhƒ‰ƒbƒOI—¹“_‚É‚¨‚¯‚é‰ñ“]‚ğ‹‚ß‚é
+  // ãƒ‰ãƒ©ãƒƒã‚°çµ‚äº†ç‚¹ã«ãŠã‘ã‚‹å›è»¢ã‚’æ±‚ã‚ã‚‹
   motion(x, y);
 
-  // Œ»İ‚Ì‰ñ“]‚ğ•\‚·lŒ³”‚ğ³‹K‰»‚µ‚Ä•Û‘¶‚·‚é
+  // ç¾åœ¨ã®å›è»¢ã‚’è¡¨ã™å››å…ƒæ•°ã‚’æ­£è¦åŒ–ã—ã¦ä¿å­˜ã™ã‚‹
   cq = tq.normalize();
 
-  // ƒhƒ‰ƒbƒOI—¹
+  // ãƒ‰ãƒ©ãƒƒã‚°çµ‚äº†
   drag = false;
 }
 
 /*
-** ƒ|ƒCƒ“ƒgF•`‰æ
+** ãƒã‚¤ãƒ³ãƒˆï¼šæç”»
 */
 void gg::GgPoints::draw(void) const
 {
-  // ’¸“_”z—ñƒIƒuƒWƒFƒNƒg‚ğw’è‚·‚é
+  // é ‚ç‚¹é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŒ‡å®šã™ã‚‹
   use();
 
-  // }Œ`‚ğ•`‰æ‚·‚é
+  // å›³å½¢ã‚’æç”»ã™ã‚‹
   glDrawArrays(getMode(), 0, pnum());
 }
 
 /*
-** ƒIƒuƒWƒFƒNƒgF•`‰æ
+** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼šæç”»
 */
 void gg::GgElements::draw(void) const
 {
-  // ’¸“_”z—ñƒIƒuƒWƒFƒNƒg‚ğw’è‚·‚é
+  // é ‚ç‚¹é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŒ‡å®šã™ã‚‹
   use();
 
-  // }Œ`‚ğ•`‰æ‚·‚é
+  // å›³å½¢ã‚’æç”»ã™ã‚‹
   glDrawElements(getMode(), fnum() * 3, GL_UNSIGNED_INT, 0);
 }
 
 /*
-** ‹…ó‚Ìƒ|ƒCƒ“ƒg
+** çƒçŠ¶ã®ãƒã‚¤ãƒ³ãƒˆ
 */
 gg::GgPoints *gg::ggPointSphere(GLuint nv, GLfloat cx, GLfloat cy, GLfloat cz, GLfloat radius)
 {
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat (*pos)[3] = new GLfloat[nv][3];
 
-  // “_‚Ì¶¬
+  // ç‚¹ã®ç”Ÿæˆ
   for (GLuint v = 0; v < nv; ++v)
   {
     float r = radius * static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
@@ -6767,21 +6767,21 @@ gg::GgPoints *gg::ggPointSphere(GLuint nv, GLfloat cx, GLfloat cy, GLfloat cz, G
     pos[v][2] = r * cp + cz;
   }
 
-  // ƒ|ƒCƒ“ƒg‚Ìì¬
+  // ãƒã‚¤ãƒ³ãƒˆã®ä½œæˆ
   GgPoints *points = new gg::GgPoints(nv, pos, GL_POINTS);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] pos;
 
   return points;
 }
 
 /*
-** ‹éŒ`
+** çŸ©å½¢
 */
 gg::GgTriangles *gg::ggRectangle(GLfloat width, GLfloat height)
 {
-  // Šî€‚Æ‚È‚éŒ`ó
+  // åŸºæº–ã¨ãªã‚‹å½¢çŠ¶
   static const GLfloat p[][2] =
   {
     { -0.5f, -0.5f },
@@ -6790,11 +6790,11 @@ gg::GgTriangles *gg::ggRectangle(GLfloat width, GLfloat height)
     { -0.5f,  0.5f },
   };
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat pos[4][3];
   GLfloat norm[4][3];
 
-  // ’¸“_ˆÊ’u‚ÌŒvZ
+  // é ‚ç‚¹ä½ç½®ã®è¨ˆç®—
   for (int v = 0; v < 4; ++v)
   {
     pos[v][0] = p[v][0] * width;
@@ -6806,18 +6806,18 @@ gg::GgTriangles *gg::ggRectangle(GLfloat width, GLfloat height)
     norm[v][2] = 1.0f;
   }
 
-  // ƒ|ƒŠƒSƒ“‚Ìì¬
+  // ãƒãƒªã‚´ãƒ³ã®ä½œæˆ
   GgTriangles *rectangle = new gg::GgTriangles(4, pos, norm, GL_TRIANGLE_FAN);
 
   return rectangle;
 }
 
 /*
-** ‘È‰~
+** æ¥•å††
 */
 gg::GgTriangles *gg::ggEllipse(GLfloat width, GLfloat height, GLuint slices)
 {
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat (*pos)[3] = 0;
   GLfloat (*norm)[3] = 0;
   try
@@ -6832,7 +6832,7 @@ gg::GgTriangles *gg::ggEllipse(GLfloat width, GLfloat height, GLuint slices)
     throw e;
   }
 
-  // ’¸“_ˆÊ’u‚ÌŒvZ
+  // é ‚ç‚¹ä½ç½®ã®è¨ˆç®—
   for (GLuint v = 0; v < slices; ++v)
   {
     float t = 6.2831853f * static_cast<float>(v) / static_cast<float>(slices);
@@ -6846,10 +6846,10 @@ gg::GgTriangles *gg::ggEllipse(GLfloat width, GLfloat height, GLuint slices)
     norm[v][2] = 1.0f;
   } 
 
-  // ƒ|ƒŠƒSƒ“‚Ìì¬
+  // ãƒãƒªã‚´ãƒ³ã®ä½œæˆ
   GgTriangles *ellipse = new gg::GgTriangles(slices, pos, norm, GL_TRIANGLE_FAN);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] pos;
   delete[] norm;
 
@@ -6857,7 +6857,7 @@ gg::GgTriangles *gg::ggEllipse(GLfloat width, GLfloat height, GLuint slices)
 }
 
 /*
-** OŠpŒ`•ªŠ„‚³‚ê‚½ Alias OBJ ƒtƒ@ƒCƒ‹ (Arrays Œ`®)
+** ä¸‰è§’å½¢åˆ†å‰²ã•ã‚ŒãŸ Alias OBJ ãƒ•ã‚¡ã‚¤ãƒ« (Arrays å½¢å¼)
 */
 gg::GgTriangles *gg::ggArraysObj(const char *name, bool normalize)
 {
@@ -6866,13 +6866,13 @@ gg::GgTriangles *gg::ggArraysObj(const char *name, bool normalize)
   GLfloat (*amb)[4], (*diff)[4], (*spec)[4], *shi;
   GLfloat (*pos)[3], (*norm)[3];
 
-  // ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
   if (!ggLoadObj(name, ng, group, amb, diff, spec, shi, nv, pos, norm, normalize)) return 0;
 
-  // ƒIƒuƒWƒFƒNƒg‚Ìì¬
+  // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
   GgTriangles *obj = new gg::GgTriangles(nv, pos, norm, GL_TRIANGLES);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] group;
   delete[] amb;
   delete[] diff;
@@ -6885,7 +6885,7 @@ gg::GgTriangles *gg::ggArraysObj(const char *name, bool normalize)
 }
 
 /*
-** OŠpŒ`•ªŠ„‚³‚ê‚½ Alias OBJ ƒtƒ@ƒCƒ‹ (Elements Œ`®)
+** ä¸‰è§’å½¢åˆ†å‰²ã•ã‚ŒãŸ Alias OBJ ãƒ•ã‚¡ã‚¤ãƒ« (Elements å½¢å¼)
 */
 gg::GgElements *gg::ggElementsObj(const char *name, bool normalize)
 {
@@ -6895,10 +6895,10 @@ gg::GgElements *gg::ggElementsObj(const char *name, bool normalize)
 
   if (!ggLoadObj(name, nv, pos, norm, nf, face, normalize)) return 0;
 
-  // ƒIƒuƒWƒFƒNƒg‚Ìì¬
+  // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
   GgElements *obj = new gg::GgElements(nv, pos, norm, nf, face, GL_TRIANGLES);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] pos;
   delete[] norm;
   delete[] face;
@@ -6907,15 +6907,15 @@ gg::GgElements *gg::ggElementsObj(const char *name, bool normalize)
 }
 
 /*
-** ƒƒbƒVƒ… (Elements Œ`®)
+** ãƒ¡ãƒƒã‚·ãƒ¥ (Elements å½¢å¼)
 */
 gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, int stacks)
 {
-  // ’¸“_”‚Æ–Ê”
+  // é ‚ç‚¹æ•°ã¨é¢æ•°
   GLuint nv = (slices + 1) * (stacks + 1);
   GLuint nf = slices * slices * 2;
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat (*pos)[3] = 0;
   GLfloat (*norm)[3] = 0;
   GLuint (*face)[3] = 0;
@@ -6933,7 +6933,7 @@ gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, in
     throw e;
   }
 
-  // ’¸“_‚ÌˆÊ’u‚Æ–@üƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+  // é ‚ç‚¹ã®ä½ç½®ã¨æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
   for (int k = 0, j = 0; j <= stacks; ++j)
   {
     GLfloat y = static_cast<GLfloat>(j) / static_cast<GLfloat>(stacks);
@@ -6942,12 +6942,12 @@ gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, in
     {
       GLfloat x = static_cast<GLfloat>(i) / static_cast<GLfloat>(slices);
 
-      // ’¸“_‚ÌÀ•W’l
+      // é ‚ç‚¹ã®åº§æ¨™å€¤
       pos[k][0] = x;
       pos[k][1] = y;
       pos[k][2] = 0.0f;
 
-      // ’¸“_‚Ì–@üƒxƒNƒgƒ‹
+      // é ‚ç‚¹ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
       norm[k][0] = 0.0f;
       norm[k][1] = 0.0f;
       norm[k][2] = 1.0f;
@@ -6956,20 +6956,20 @@ gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, in
     }
   }
 
-  // –Ê‚Ìw•W‚ğ‹‚ß‚é
+  // é¢ã®æŒ‡æ¨™ã‚’æ±‚ã‚ã‚‹
   for (int k = 0, j = 0; j < stacks; ++j)
   {
     for (int i = 0; i < slices; ++i)
     {
       int count = (slices + 1) * j + i;
 
-      // ã”¼•ª‚ÌOŠpŒ`
+      // ä¸ŠåŠåˆ†ã®ä¸‰è§’å½¢
       face[k][0] = count;
       face[k][1] = count + slices + 2;
       face[k][2] = count + 1;
       ++k;
 
-      // ‰º”¼•ª‚ÌOŠpŒ`
+      // ä¸‹åŠåˆ†ã®ä¸‰è§’å½¢
       face[k][0] = count;
       face[k][1] = count + slices + 1;
       face[k][2] = count + slices + 2;
@@ -6977,10 +6977,10 @@ gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, in
     }
   }
 
-  // ƒIƒuƒWƒFƒNƒg‚Ìì¬
+  // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
   GgElements *obj = new gg::GgElements(nv, pos, norm, nf, face, GL_TRIANGLES);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] pos;
   delete[] norm;
   delete[] face;
@@ -6989,15 +6989,15 @@ gg::GgElements *gg::ggElementsMesh(GLfloat width, GLfloat height, int slices, in
 }
 
 /*
-** ‹… (Elements Œ`®)
+** çƒ (Elements å½¢å¼)
 */
 gg::GgElements *gg::ggElementsSphere(GLfloat radius, int slices, int stacks)
 {
-  // ’¸“_”‚Æ–Ê”
+  // é ‚ç‚¹æ•°ã¨é¢æ•°
   GLuint nv = (slices + 1) * (stacks + 1);
   GLuint nf = slices * slices * 2;
 
-  // ƒƒ‚ƒŠ‚ÌŠm•Û
+  // ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
   GLfloat (*pos)[3] = 0;
   GLfloat (*norm)[3] = 0;
   GLuint (*face)[3] = 0;
@@ -7014,7 +7014,7 @@ gg::GgElements *gg::ggElementsSphere(GLfloat radius, int slices, int stacks)
     throw e;
   }
 
-  // ’¸“_‚ÌˆÊ’u‚Æ–@üƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+  // é ‚ç‚¹ã®ä½ç½®ã¨æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
   for (int k = 0, j = 0; j <= stacks; ++j)
   {
     float t = (float)j / (float)stacks;
@@ -7029,12 +7029,12 @@ gg::GgElements *gg::ggElementsSphere(GLfloat radius, int slices, int stacks)
       float x = r * cosf(th);
       float z = r * sinf(th);
 
-      // ’¸“_‚ÌÀ•W’l
+      // é ‚ç‚¹ã®åº§æ¨™å€¤
       pos[k][0] = x * radius;
       pos[k][1] = y * radius;
       pos[k][2] = z * radius;
 
-      // ’¸“_‚Ì–@üƒxƒNƒgƒ‹
+      // é ‚ç‚¹ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
       norm[k][0] = x;
       norm[k][1] = y;
       norm[k][2] = z;
@@ -7043,20 +7043,20 @@ gg::GgElements *gg::ggElementsSphere(GLfloat radius, int slices, int stacks)
     }
   }
 
-  // –Ê‚Ìw•W‚ğ‹‚ß‚é
+  // é¢ã®æŒ‡æ¨™ã‚’æ±‚ã‚ã‚‹
   for (int k = 0, j = 0; j < stacks; ++j)
   {
     for (int i = 0; i < slices; ++i)
     {
       int count = (slices + 1) * j + i;
 
-      // ã”¼•ª‚ÌOŠpŒ`
+      // ä¸ŠåŠåˆ†ã®ä¸‰è§’å½¢
       face[k][0] = count;
       face[k][1] = count + slices + 2;
       face[k][2] = count + 1;
       ++k;
 
-      // ‰º”¼•ª‚ÌOŠpŒ`
+      // ä¸‹åŠåˆ†ã®ä¸‰è§’å½¢
       face[k][0] = count;
       face[k][1] = count + slices + 1;
       face[k][2] = count + slices + 2;
@@ -7064,10 +7064,10 @@ gg::GgElements *gg::ggElementsSphere(GLfloat radius, int slices, int stacks)
     }
   }
 
-  // ƒIƒuƒWƒFƒNƒg‚Ìì¬
+  // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
   GgElements *obj = new gg::GgElements(nv, pos, norm, nf, face, GL_TRIANGLES);
 
-  // ì‹Æ—p‚Ìƒƒ‚ƒŠ‚Ì‰ğ•ú
+  // ä½œæ¥­ç”¨ã®ãƒ¡ãƒ¢ãƒªã®è§£æ”¾
   delete[] pos;
   delete[] norm;
   delete[] face;
